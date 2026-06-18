@@ -5,7 +5,20 @@
 
 [node name="Main" type="Node2D"]
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(170, 145)
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.51, 0.22524999, 0.16829999, 1)
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+offset_left = 179.0
+offset_top = 186.0
+offset_right = 307.0
+offset_bottom = 314.0
 texture = ExtResource("1_0xm2m")
 script = ExtResource("2_h2yge")
