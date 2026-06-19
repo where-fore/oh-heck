@@ -1,10 +1,21 @@
 right now
 --------------
 
+ui: need ui_card which holds a reference to a card
+a ui_hand which holds ui_cards, and lets you press those card buttons
 
 
 
 
+hand -> playmat. opponent goes hand -> playmat.
+manager hears both signals are done. compares playmats, awards winner a trick. discards all playmat contents
+
+i want ui cards for each player and opponent
+	shows what's in your hand
+	clicking them puts them into play
+
+then i want the game manager to make you take turns
+then i want the manager to score after each player has taken their turn (1 each)
 
 ---------------------------------------------------------
 required
@@ -100,7 +111,13 @@ the primes can also just be symbol + number
 not sure what the roguelike twist to oh-hell would be, although i do generally like the mechanics. not sure how to make an ai to play oh hell against. i guess he can just cheat and be dumb
 call it oh heck, it's perfect
 
-
+maybe two types of special things - cards which do something when played, and just little powers you can press and they do something. not sure if they take up a card slot or not
+unique effect cards:
+	card with two modes, can play as either (maybe takes a second card from the deck and eats it? to prevent duplicate/ties)
+	card that auto wins trick, auto loses trick
+	card that makes next card do something different (next card trump, next card value + 3, next card auto wins or loses)
+	card that makes you draw 2 more cards
+	
 
 
 

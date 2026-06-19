@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://dx6yfgor4ql7l"]
+
+[ext_resource type="Script" uid="uid://cqigbmsanih3i" path="res://systems/game logic/game_player.gd" id="1_prve4"]
+[ext_resource type="PackedScene" uid="uid://vxo5j0k4ahgv" path="res://systems/game logic/hand.tscn" id="2_xaowl"]
+
+[node name="GamePlayer" type="Node2D" node_paths=PackedStringArray("hand", "playmat")]
+script = ExtResource("1_prve4")
+hand = NodePath("Hand")
+playmat = NodePath("PlayMat")
+
+[node name="Hand" parent="." instance=ExtResource("2_xaowl")]
+
+[node name="PlayMat" parent="." instance=ExtResource("2_xaowl")]

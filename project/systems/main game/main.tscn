@@ -1,29 +1,66 @@
-[gd_scene load_steps=4 format=3 uid="uid://cwaeulhb1hvn"]
+[gd_scene load_steps=6 format=3 uid="uid://cwaeulhb1hvn"]
 
 [ext_resource type="Script" uid="uid://dk2q2ee2nslgr" path="res://systems/main game/card_manager.gd" id="1_cqvht"]
-[ext_resource type="PackedScene" uid="uid://cafmoo6vrwq2m" path="res://systems/gameplay pieces/deck.tscn" id="1_e0pva"]
-[ext_resource type="PackedScene" uid="uid://vxo5j0k4ahgv" path="res://systems/gameplay pieces/hand.tscn" id="2_cqvht"]
+[ext_resource type="PackedScene" uid="uid://cafmoo6vrwq2m" path="res://systems/game logic/deck.tscn" id="1_e0pva"]
+[ext_resource type="PackedScene" uid="uid://fpdybr41mhfl" path="res://systems/ui of game logic/ui_hand.tscn" id="1_h0t3a"]
+[ext_resource type="PackedScene" uid="uid://vxo5j0k4ahgv" path="res://systems/game logic/hand.tscn" id="2_cqvht"]
+[ext_resource type="PackedScene" uid="uid://dx6yfgor4ql7l" path="res://systems/game logic/game_player.tscn" id="4_i5fcm"]
 
 [node name="Main" type="Node2D"]
 
-[node name="CardManager" type="Node2D" parent="." node_paths=PackedStringArray("testing_hand_object", "testing_discard_object", "testing_deck_object")]
+[node name="MainUI" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="MainUI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="MainUI/Control"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -89.5
+offset_right = 212.0
+offset_bottom = 89.5
+grow_vertical = 2
+text = "1: Display Deck
+2: Shuffle Deck
+3: Draw a card
+4: Display Hand
+5: Discard Hand
+6: Display Discard
+7: Shuffle Discard into Deck"
+
+[node name="EnemyHand" parent="MainUI/Control" instance=ExtResource("1_h0t3a")]
+layout_mode = 1
+anchors_preset = 10
+anchor_top = 0.0
+anchor_bottom = 0.0
+offset_top = 120.0
+offset_bottom = 120.0
+grow_vertical = 1
+top = true
+
+[node name="PlayerHand" parent="MainUI/Control" instance=ExtResource("1_h0t3a")]
+layout_mode = 1
+
+[node name="GameLogicManager" type="Node2D" parent="."]
+
+[node name="CardManager" type="Node2D" parent="GameLogicManager" node_paths=PackedStringArray("deck", "player", "enemy", "discard_pile")]
 script = ExtResource("1_cqvht")
-testing_hand_object = NodePath("PlayerOwned/Hand")
-testing_discard_object = NodePath("DiscardPile")
-testing_deck_object = NodePath("MainDeck")
+deck = NodePath("MainDeck")
+player = NodePath("Player")
+enemy = NodePath("Enemy")
+discard_pile = NodePath("DiscardPile")
 
-[node name="DiscardPile" parent="CardManager" instance=ExtResource("2_cqvht")]
+[node name="MainDeck" parent="GameLogicManager/CardManager" instance=ExtResource("1_e0pva")]
 
-[node name="MainDeck" parent="CardManager" instance=ExtResource("1_e0pva")]
+[node name="DiscardPile" parent="GameLogicManager/CardManager" instance=ExtResource("2_cqvht")]
 
-[node name="PlayerOwned" type="Node2D" parent="CardManager"]
+[node name="Player" parent="GameLogicManager/CardManager" instance=ExtResource("4_i5fcm")]
 
-[node name="Hand" parent="CardManager/PlayerOwned" instance=ExtResource("2_cqvht")]
-
-[node name="PlayMat" parent="CardManager/PlayerOwned" instance=ExtResource("2_cqvht")]
-
-[node name="EnemyOwned" type="Node2D" parent="CardManager"]
-
-[node name="Hand" parent="CardManager/EnemyOwned" instance=ExtResource("2_cqvht")]
-
-[node name="PlayMat" parent="CardManager/EnemyOwned" instance=ExtResource("2_cqvht")]
+[node name="Enemy" parent="GameLogicManager/CardManager" instance=ExtResource("4_i5fcm")]

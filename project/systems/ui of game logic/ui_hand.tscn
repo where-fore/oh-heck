@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=3 uid="uid://fpdybr41mhfl"]
+
+[ext_resource type="Script" uid="uid://yjhh416o78w5" path="res://systems/ui of game logic/ui_hand.gd" id="1_i0qko"]
+[ext_resource type="PackedScene" uid="uid://bwrfntpak2rds" path="res://systems/ui of game logic/ui_card.tscn" id="1_lromn"]
+
+[node name="GamePlayerHand" type="Control" node_paths=PackedStringArray("ui_card_container")]
+layout_mode = 3
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("1_i0qko")
+UICard_base_scene = ExtResource("1_lromn")
+ui_card_container = NodePath("HBoxContainer")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -120.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="UICard" parent="HBoxContainer" instance=ExtResource("1_lromn")]
+layout_mode = 2
+
+[node name="UICard2" parent="HBoxContainer" instance=ExtResource("1_lromn")]
+layout_mode = 2
+
+[node name="UICard3" parent="HBoxContainer" instance=ExtResource("1_lromn")]
+layout_mode = 2

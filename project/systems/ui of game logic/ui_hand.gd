@@ -1,0 +1,42 @@
+extends Control
+
+@export var top:bool
+
+var game_player:GamePlayer
+
+@export_category("Initialization")
+@export var ui_card_container:Container
+@export var UICard_base_scene:PackedScene
+
+func _ready() -> void:
+	if top:
+		UiEvents.send_game_player_to_top_ui.connect(setup)
+	else:
+		UiEvents.send_game_player_to_bottom_ui.connect(setup)
+
+func setup(game_player_to_assign:GamePlayer) -> void:
+	game_player = game_player_to_assign
+	recreate_hand()
+	game_player.hand.card_added.connect(create_ui_card)
+	game_player.hand.card_removed.connect(delete_ui_card)
+
+func recreate_hand() -> void:
+	for child:Node in ui_card_container.get_children():
+		child.queue_free()
+	for card:Card in game_player.hand.cards_in_hand:
+		create_ui_card(card)
+
+func create_ui_card(card_to_assign:Card) -> void:
+	var new_ui_card:UICard = UICard_base_scene.instantiate()
+	ui_card_container.add_child(new_ui_card)
+	new_ui_card.setup(card_to_assign)
+
+func delete_ui_card(card_to_delete:Card) -> void:
+	var deleted:bool = false
+	
+	for ui_card:UICard in ui_card_container.get_children():
+		if ui_card.card == card_to_delete:
+			ui_card.queue_free()
+			deleted = true
+	
+	if not deleted: push_error("couldn't find ui card to delete: ", card_to_delete.print_string)

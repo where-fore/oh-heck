@@ -1,26 +1,20 @@
 extends Node2D
 
-var deck:Deck
-var player_hand:Hand
-var enemy_hand:Hand
-var discard_pile:Hand
-
-@export var testing_hand_object:Hand
-@export var testing_discard_object:Hand
-@export var testing_deck_object:Deck
+@export var deck:Deck
+@export var player:GamePlayer
+@export var enemy:GamePlayer
+@export var discard_pile:Hand
 
 func _ready() -> void:
-	deck = testing_deck_object
 	deck.setup()
-	
-	player_hand = testing_hand_object
-	discard_pile = testing_discard_object
+	UiEvents.send_game_player_to_top_ui.emit(enemy)
+	UiEvents.send_game_player_to_bottom_ui.emit(player)
 
 func draw_a_card() -> void:
-	player_hand.add_card(deck.draw_top_card())
+	player.hand.add_card(deck.draw_top_card())
 
 func discard_hand() -> void:
-	discard_pile.add_cards(player_hand.discard_hand())
+	discard_pile.add_cards(player.hand.discard_hand())
 
 func print_card_array_by_suit(card_array:Array[Card]) -> void:
 	print("cards in array: ", card_array.size())
@@ -52,24 +46,24 @@ func _unhandled_input(event: InputEvent) -> void:
 			print_card_array_by_suit(deck.cards_in_deck)
 		
 		@warning_ignore("unsafe_property_access")
-		if event.keycode == KEY_3:
-			print_debug("drawing card...")
-			draw_a_card()
-		
-		@warning_ignore("unsafe_property_access")
 		if event.keycode == KEY_2:
 			print_debug("shuffling deck...")
 			deck.shuffle_deck()
 		
 		@warning_ignore("unsafe_property_access")
+		if event.keycode == KEY_3:
+			print_debug("drawing card...")
+			draw_a_card()
+		
+		@warning_ignore("unsafe_property_access")
 		if event.keycode == KEY_4:
 			print_debug("displaying hand...")
-			print_card_array_one_line(player_hand.cards_in_hand)
+			print_card_array_one_line(player.hand.cards_in_hand)
 		
 		@warning_ignore("unsafe_property_access")
 		if event.keycode == KEY_5:
 			print_debug("discarding hand...")
-			discard_pile.add_cards(player_hand.discard_hand())
+			discard_pile.add_cards(player.hand.discard_hand())
 		
 		@warning_ignore("unsafe_property_access")
 		if event.keycode == KEY_6:
