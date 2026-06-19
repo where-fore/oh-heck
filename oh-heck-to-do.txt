@@ -1,37 +1,6 @@
 right now
 --------------
 
-if there's any prime, largest wins
-if there's any on suit, largest wins
-if there's any off suit, largest wins
-
-check_winner_of_suit(suit_to_check) -> gameplayer
-for gameplayers
-
-	var current_highest_off_suit:int = 0
-	var current_highest_on_suit:int = 0
-	var current_highest_prime:int = 0
-
-		for card:Card in gameplayer.playmat.cards_in_hand:
-			if card.suit == Rules.current_prime:
-				if card.value > current_highest_prime:
-					current_highest_prime = card.value
-					winning_gameplayer = gameplayer
-			elif card.suit == current_suit:
-				if card.value > current_highest_on_suit:
-					current_highest_on_suit = card.value
-					winning_gameplayer = gameplayer
-			elif card.suit != current_suit or card.suit != Rules.current_prime:
-				if card.value > current_highest_off_suit:
-					current_highest_off_suit = card.value
-					winning_gameplayer = gameplayer
-
-
-
-
-
-check following prime when playing cards (maybe highlight those cards?)
-check prime suit when taking tricks
 
 rudimentary ai
 	play at random
@@ -66,6 +35,8 @@ figure out end condition
 ----------------------------------------------------------------------------
 okay it'd be really good
 ----------------------------------------------------------------------------
+
+little dialogue pops ups, at least for tutorialization, would be great
 
 show an indicator for currently lead suit
 
@@ -158,6 +129,7 @@ unique effect cards:
 	cards which increase points won from bidding, or losing the bid, or tricks taken
 	cards that do something when discarded from hand (not played?)
 	cards that change current prime
+	cards which set you to be controlled by ai for a few turns (as a downside, like sts2)
 
 
 angel: #DBCBD8

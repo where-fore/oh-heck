@@ -4,6 +4,8 @@ class_name GamePlayer
 @export var hand:Hand
 @export var playmat:Playmat
 
+var controlled_by_ai:bool = false
+
 var have_played_this_round:bool = false
 
 signal tricks_updated
@@ -30,6 +32,9 @@ func _ready() -> void:
 	playmat.card_added.connect(func(_unused_data) -> void: playmat.recalculate_total())
 	@warning_ignore("untyped_declaration") #programmer short hand for yeeting all the arguments
 	playmat.card_removed.connect(func(_unused_data) -> void: playmat.recalculate_total())
+
+func start_turn() -> void:
+	if controlled_by_ai: UiEvents.card_selected_to_play.emit(self, hand.cards_in_hand.pick_random())
 
 func play_card(card_to_play:Card) -> void:
 	playmat.add_card(card_to_play)

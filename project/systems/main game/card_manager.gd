@@ -5,10 +5,7 @@ extends Node2D
 @export var enemy:GamePlayer
 @onready var all_gameplayers:Array[GamePlayer] = [player, enemy]
 @export var discard_pile:DiscardPile
-var current_turn:GamePlayer:
-	set(value):
-		current_turn = value
-		print_debug("turn set to: ", current_turn.name)
+var current_turn:GamePlayer
 var next_leader_index:int = 0
 var current_hand_size:int = 3
 var current_suit:StringName = unset_suit
@@ -22,6 +19,8 @@ func _ready() -> void:
 	UiEvents.bid_set_to.connect(set_player_bid_to)
 	
 	current_turn = player
+	
+	enemy.controlled_by_ai = true
 	
 	start_hand()
 
@@ -40,11 +39,13 @@ func start_hand() -> void:
 	UiEvents.set_prime_card.emit(deck.draw_top_card())
 	
 	UiEvents.begin_bidding.emit()
+	await UiEvents.end_bidding
 	
 	current_turn = all_gameplayers[next_leader_index]
 	next_leader_index += 1
 	if next_leader_index > all_gameplayers.size() - 1: next_leader_index = 0
-	print_debug("next leader: ", all_gameplayers[next_leader_index].name)
+	
+	current_turn.start_turn()
 
 func check_and_play_card(gameplayer:GamePlayer, card:Card) -> void:
 	if gameplayer == current_turn:
@@ -55,14 +56,15 @@ func check_and_play_card(gameplayer:GamePlayer, card:Card) -> void:
 		if gameplayer == player: current_turn = enemy
 		elif gameplayer == enemy: current_turn = player
 		
-		check_if_round_over()
+		if not check_if_round_over(): current_turn.start_turn()
 
-func check_if_round_over() -> void:
+func check_if_round_over() -> bool:
 	for gameplayer:GamePlayer in all_gameplayers:
 		if not gameplayer.have_played_this_round:
-			return
+			return false
 	#if you got this far...
 	end_round()
+	return true
 
 func end_round() -> void:
 	find_and_award_winner()
@@ -77,6 +79,7 @@ func end_round() -> void:
 	
 	current_suit = unset_suit
 	if should_end_hand: end_hand()
+	else: current_turn.start_turn()
 
 func find_and_award_winner() -> void:
 	if not check_highest_of_suit(Rules.current_prime):

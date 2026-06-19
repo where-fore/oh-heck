@@ -1,11 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://cwaeulhb1hvn"]
+[gd_scene load_steps=8 format=3 uid="uid://cwaeulhb1hvn"]
 
 [ext_resource type="Script" uid="uid://dk2q2ee2nslgr" path="res://systems/main game/card_manager.gd" id="1_cqvht"]
 [ext_resource type="PackedScene" uid="uid://cafmoo6vrwq2m" path="res://systems/game logic/deck.tscn" id="1_e0pva"]
 [ext_resource type="PackedScene" uid="uid://cwd5utjj5grbm" path="res://systems/ui of game logic/ui_game_player.tscn" id="1_h0t3a"]
 [ext_resource type="Script" uid="uid://dj5e1guj63ned" path="res://systems/main game/bidding_interface.gd" id="2_12n6d"]
 [ext_resource type="PackedScene" uid="uid://qiwyiv44ew30" path="res://systems/ui of game logic/prime_card.tscn" id="2_ygcjw"]
-[ext_resource type="Script" uid="uid://dry8yw85la5mc" path="res://systems/ui of game logic/prime_card.gd" id="3_dq3g3"]
 [ext_resource type="PackedScene" uid="uid://dh1aiemun7tri" path="res://systems/game logic/discard_pile.tscn" id="4_h0t3a"]
 [ext_resource type="PackedScene" uid="uid://dx6yfgor4ql7l" path="res://systems/game logic/game_player.tscn" id="4_i5fcm"]
 
@@ -64,7 +63,6 @@ layout_mode = 1
 offset_left = -40.0
 offset_top = -20.0
 offset_bottom = 20.0
-script = ExtResource("3_dq3g3")
 
 [node name="Bidding Interface" type="Control" parent="MainUI/MarginContainer" node_paths=PackedStringArray("textbox")]
 layout_mode = 2
