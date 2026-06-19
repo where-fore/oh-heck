@@ -167,16 +167,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 1
-theme_override_constants/line_spacing = 40
+theme_override_constants/line_spacing = 30
+theme_override_constants/paragraph_spacing = -8
 text = "OH HELL
 
 CARDS GO UP TO 6
 PRIME SUIT ALWAYS WINS
-YOU HAVE TO FOLLOW SUIT
-FOLLOWED SUIT WINS
+YOU HAVE TO FOLLOW SUIT, FOLLOWING SUIT WINS
 
 YOU BID HOW MANY TRICKS YOU WIN
-YOU GET POINTS FOR GETTING YOUR BID CORRECT"
+YOU GET POINTS FOR GETTING YOUR BID CORRECT
+NO BIDS THAT MAKE ALL BIDS EQUAL TO HAND SIZE
+
+OH HELL"
 horizontal_alignment = 1
 vertical_alignment = 1
 
