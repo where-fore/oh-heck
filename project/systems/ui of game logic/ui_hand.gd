@@ -30,6 +30,8 @@ func create_ui_card(card_to_assign:Card) -> void:
 	var new_ui_card:UICard = UICard_base_scene.instantiate()
 	ui_card_container.add_child(new_ui_card)
 	new_ui_card.setup(card_to_assign)
+	if game_player.hand_hidden:
+		new_ui_card.hide_card()
 	
 	if not playmat:
 		new_ui_card.ui_card_selected.connect(play_card_from_ui_card)

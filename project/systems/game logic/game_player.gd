@@ -5,6 +5,7 @@ class_name GamePlayer
 @export var playmat:Playmat
 
 var controlled_by_ai:bool = false
+var hand_hidden:bool = false
 
 var have_played_this_round:bool = false
 

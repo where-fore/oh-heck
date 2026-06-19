@@ -11,11 +11,11 @@ var card:Card
 @export var devil_icon:TextureRect
 @export var moon_icon:TextureRect
 @export var sun_icon:TextureRect
+@export var back_icon:TextureRect
 @onready var icons:Array[TextureRect] = [angel_icon, devil_icon, moon_icon, sun_icon]
 signal ui_card_selected(ui_card:UICard)
 
 func setup(card_to_assign:Card) -> void:
-	
 	card = card_to_assign
 	card.availablility_updated.connect(check_to_darken)
 	
@@ -38,9 +38,23 @@ func setup(card_to_assign:Card) -> void:
 	value_label.text = str(card.value)
 	upside_down_value_label.text = str(card.value)
 
+func hide_card() -> void:
+	colour_swatch.color = Names.basic_color
+	value_label.visible = false
+	upside_down_value_label.visible = false
+	disable_all_icons()
+	back_icon.visible = true
+	enable_darkener()
+
 func check_to_darken() -> void:
-	if not card.available_to_play: darkener.visible = true
-	elif card.available_to_play: darkener.visible = false
+	if not card.available_to_play: enable_darkener()
+	elif card.available_to_play: disable_darkener()
+
+func enable_darkener() -> void:
+	darkener.visible = true
+
+func disable_darkener() -> void:
+	darkener.visible = false
 
 func disable_all_icons() -> void:
 	for icon:TextureRect in icons:

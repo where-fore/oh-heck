@@ -23,6 +23,7 @@ func _ready() -> void:
 	current_turn = player
 	
 	enemy.controlled_by_ai = true
+	enemy.hand_hidden = true
 	
 	start_hand()
 
