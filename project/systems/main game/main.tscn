@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://cwaeulhb1hvn"]
+
+[ext_resource type="Script" uid="uid://dk2q2ee2nslgr" path="res://systems/main game/card_manager.gd" id="1_cqvht"]
+[ext_resource type="PackedScene" uid="uid://cafmoo6vrwq2m" path="res://systems/gameplay pieces/deck.tscn" id="1_e0pva"]
+[ext_resource type="PackedScene" uid="uid://vxo5j0k4ahgv" path="res://systems/gameplay pieces/hand.tscn" id="2_cqvht"]
+
+[node name="Main" type="Node2D"]
+
+[node name="CardManager" type="Node2D" parent="." node_paths=PackedStringArray("testing_hand_object", "testing_discard_object", "testing_deck_object")]
+script = ExtResource("1_cqvht")
+testing_hand_object = NodePath("PlayerOwned/Hand")
+testing_discard_object = NodePath("DiscardPile")
+testing_deck_object = NodePath("MainDeck")
+
+[node name="DiscardPile" parent="CardManager" instance=ExtResource("2_cqvht")]
+
+[node name="MainDeck" parent="CardManager" instance=ExtResource("1_e0pva")]
+
+[node name="PlayerOwned" type="Node2D" parent="CardManager"]
+
+[node name="Hand" parent="CardManager/PlayerOwned" instance=ExtResource("2_cqvht")]
+
+[node name="PlayMat" parent="CardManager/PlayerOwned" instance=ExtResource("2_cqvht")]
+
+[node name="EnemyOwned" type="Node2D" parent="CardManager"]
+
+[node name="Hand" parent="CardManager/EnemyOwned" instance=ExtResource("2_cqvht")]
+
+[node name="PlayMat" parent="CardManager/EnemyOwned" instance=ExtResource("2_cqvht")]

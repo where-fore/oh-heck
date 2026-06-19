@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cafmoo6vrwq2m"]
+
+[ext_resource type="Script" uid="uid://dmjpjw14oe3ns" path="res://systems/gameplay pieces/deck.gd" id="1_nxa04"]
+
+[node name="DeckObject" type="Node2D"]
+script = ExtResource("1_nxa04")

@@ -1,0 +1,116 @@
+right now
+--------------
+
+
+
+
+
+
+---------------------------------------------------------
+required
+---------------------------------------------------------
+
+basic gameplay:
+	game ui
+		card objects
+			ui component that draws the data (including mapping sprites and text to the data)
+		hand to hold cards
+			ui component that draws that data
+		play mat
+			holds cards
+			each player has a playmat
+	see prime suit, draw a hand, make a bid
+		this is a game flow manager
+	enemy ai does the same (but the bid can't make equal to hand size)
+	play game
+		play a card, opponent does too, someone takes the trick
+		repeat until no more cards
+		count up tricks taken, award points if tricks = bid
+	repeat, but ai starts the game first. also probably change hand size, 1 -> 7 -> 1, probably
+		
+
+get basic cards (probably just a suit icon, and a number in text) (and a 9patch frame)
+
+
+
+questions to answer:
+	it is required we share a deck, at least of basic cards, for the rules of the game. so how do i add roguelike elements? i can't just add them to the deck can i?
+
+
+
+
+
+----------------------------------------------------------------------------
+okay it'd be really good
+----------------------------------------------------------------------------
+
+get a basic colour palette (probably ui base deep red; demon cards bright red; moon purple/grey; angel white/yellow/gold)
+
+advanced gameplay:
+	after so many rounds, pick a card to add to the deck (enemy can't draw it, not sure how to program this. shuffle the deck and draw again? draw top card, but skip if angel and draw second top?)
+	have those cards with custom effects (takes the trick no matter what, loses the trick no matter what, takes the opponents card into your hand)
+	ai better at game somehow, there's probably improvements
+
+intro cutscene
+dialogue popups
+
+settings menu
+
+sfx for playing cards/using ui
+backing music
+
+
+
+
+
+
+----------------------------------------------------------------------------
+im brainstormin
+----------------------------------------------------------------------------
+
+demons.... sign a contract? then beat them at oh-hell? i like the "i am going to ___" instead of trying to "win", it's about trying to guess your capabilities correctly
+oh hell, that's good
+then with powers? make your card fiery, fire cards always win. angel, does nothing if your opponent is a devil. 
+voice act the demon? lmao
+oh hell gameplay - trick taking. have some cards which have suits and values, higher value beats lower value, and "trump" suit beats "non-trump" suit, trump changing per round (rules are grab an undrawn card, which means your hands are less likely to be trump cards)
+total bid can't be 100%, so one player loses
+
+does this mean i have an ai demon playing against you? interesting
+
+5 colour palette - one for ui (two really, black and ___); 4, one for each suit - demon / angel / sun / moon. red/white/orange/purple? forest green ui? i want a dark red heck ui, bright red heck cards!
+roguelike change things in your deck, add extra angel cards secretly
+	maybe you have an angel homie helping you out secretly
+	demon gave you a deck but didn't check what's in there, and what's on the card is what's on the card
+		demon can give you a card he wrote over 
+check your deck, see what's in there
+
+see half your hand
+bid
+draw the other half
+sounds a bit lame, you don't have all the info, oh hell is already hard enough with their hand as missing info
+
+what if angel cards were never prime, because the demon hates angels... but you put cool effects on your angel cards?
+prime = trump
+
+voice act it all, with a dank deepening filter
+
+this all seems a bit much, lots of art assets
+i guess i can prune to 3 prime suits, angel on top + text underneath
+the primes can also just be symbol + number
+not sure what the roguelike twist to oh-hell would be, although i do generally like the mechanics. not sure how to make an ai to play oh hell against. i guess he can just cheat and be dumb
+call it oh heck, it's perfect
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------
+alright that's cool but idk if i have time
+----------------------------------------------------------------------------
+
+multiplayer!!!
+	hot seat: have hands invisible unless you hover over them, and have each real life player cover their real life eyes while their opponent looks at their hand

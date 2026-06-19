@@ -1,0 +1,82 @@
+extends Node2D
+
+var deck:Deck
+var player_hand:Hand
+var enemy_hand:Hand
+var discard_pile:Hand
+
+@export var testing_hand_object:Hand
+@export var testing_discard_object:Hand
+@export var testing_deck_object:Deck
+
+func _ready() -> void:
+	deck = testing_deck_object
+	deck.setup()
+	
+	player_hand = testing_hand_object
+	discard_pile = testing_discard_object
+
+func draw_a_card() -> void:
+	player_hand.add_card(deck.draw_top_card())
+
+func discard_hand() -> void:
+	discard_pile.add_cards(player_hand.discard_hand())
+
+func print_card_array_by_suit(card_array:Array[Card]) -> void:
+	print("cards in array: ", card_array.size())
+	var to_print_master:Array[String]
+	for suit in Names.suits:
+		var to_print:Array[String]
+		for card:Card in card_array:
+			if card.suit == suit:
+				to_print.append(card.print_string)
+				#would be nice to order by value
+		if to_print.size() == 0: to_print.append("no cards of " + suit)
+		to_print_master.append(", ".join(to_print))
+	print("\n".join(to_print_master))
+
+func print_card_array_one_line(card_array:Array[Card]) -> void:
+	var to_print:Array[String]
+	for card:Card in card_array:
+		to_print.append(card.print_string)
+	if to_print.size() == 0: to_print.append("empty")
+	print(", ".join(to_print))
+
+func _unhandled_input(event: InputEvent) -> void:
+	@warning_ignore("unsafe_property_access")
+	if event is InputEventKey and event.pressed:
+
+		@warning_ignore("unsafe_property_access")
+		if event.keycode == KEY_1:
+			print_debug("printing deck...")
+			print_card_array_by_suit(deck.cards_in_deck)
+		
+		@warning_ignore("unsafe_property_access")
+		if event.keycode == KEY_3:
+			print_debug("drawing card...")
+			draw_a_card()
+		
+		@warning_ignore("unsafe_property_access")
+		if event.keycode == KEY_2:
+			print_debug("shuffling deck...")
+			deck.shuffle_deck()
+		
+		@warning_ignore("unsafe_property_access")
+		if event.keycode == KEY_4:
+			print_debug("displaying hand...")
+			print_card_array_one_line(player_hand.cards_in_hand)
+		
+		@warning_ignore("unsafe_property_access")
+		if event.keycode == KEY_5:
+			print_debug("discarding hand...")
+			discard_pile.add_cards(player_hand.discard_hand())
+		
+		@warning_ignore("unsafe_property_access")
+		if event.keycode == KEY_6:
+			print_debug("displaying discard pile...")
+			print_card_array_one_line(discard_pile.cards_in_hand)
+		
+		@warning_ignore("unsafe_property_access")
+		if event.keycode == KEY_7:
+			print_debug("shuffling discard pile in...")
+			deck.shuffle_deck(discard_pile.discard_hand())
