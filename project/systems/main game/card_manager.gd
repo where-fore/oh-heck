@@ -5,7 +5,10 @@ extends Node2D
 @export var enemy:GamePlayer
 @onready var all_gameplayers:Array[GamePlayer] = [player, enemy]
 @export var discard_pile:DiscardPile
-var current_turn:GamePlayer
+var current_turn:GamePlayer:
+	set(value):
+		current_turn = value
+		print_debug("turn set to: ", current_turn.name)
 var next_leader_index:int = 0
 var current_hand_size:int = 3
 var current_suit:StringName = unset_suit
@@ -37,6 +40,11 @@ func start_hand() -> void:
 	UiEvents.set_prime_card.emit(deck.draw_top_card())
 	
 	UiEvents.begin_bidding.emit()
+	
+	current_turn = all_gameplayers[next_leader_index]
+	next_leader_index += 1
+	if next_leader_index > all_gameplayers.size() - 1: next_leader_index = 0
+	print_debug("next leader: ", all_gameplayers[next_leader_index].name)
 
 func check_and_play_card(gameplayer:GamePlayer, card:Card) -> void:
 	if gameplayer == current_turn:
@@ -44,10 +52,10 @@ func check_and_play_card(gameplayer:GamePlayer, card:Card) -> void:
 		if current_suit == unset_suit:
 			current_suit = card.suit
 		
-		check_if_round_over()
-		
 		if gameplayer == player: current_turn = enemy
 		elif gameplayer == enemy: current_turn = player
+		
+		check_if_round_over()
 
 func check_if_round_over() -> void:
 	for gameplayer:GamePlayer in all_gameplayers:
@@ -104,7 +112,8 @@ func check_highest_of_suit(suit_to_check:StringName) -> bool:
 	return false
 
 func award_trick_to_winner(winner:GamePlayer) -> void:
-	winner.award_trick()	
+	winner.award_trick()
+	current_turn = winner
 
 func end_hand() -> void:
 	for gameplayer:GamePlayer in all_gameplayers:
