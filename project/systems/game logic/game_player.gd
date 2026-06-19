@@ -34,7 +34,7 @@ func _ready() -> void:
 	playmat.card_removed.connect(func(_unused_data) -> void: playmat.recalculate_total())
 
 func start_turn() -> void:
-	if controlled_by_ai: UiEvents.card_selected_to_play.emit(self, hand.cards_in_hand.pick_random())
+	if controlled_by_ai: UiEvents.card_selected_to_play.emit(self, ai_choose_card())
 
 func play_card(card_to_play:Card) -> void:
 	playmat.add_card(card_to_play)
@@ -61,6 +61,12 @@ func award_points_from_hand() -> void:
 func reset_per_hand() -> void:
 	current_bid = 0
 	current_tricks = 0
+
+func ai_choose_card() -> Card:
+	var available_cards:Array[Card]
+	for card:Card in hand.cards_in_hand:
+		if card.available_to_play: available_cards.append(card)
+	return available_cards.pick_random()
 
 func ai_choose_bid(current_sum:int, maximum_hand_size:int) -> void:
 	var found_a_bid:bool = false

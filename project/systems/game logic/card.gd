@@ -1,6 +1,12 @@
 extends Resource
 class_name Card
 
+signal availablility_updated
+var available_to_play:bool = true:
+	set(value):
+		available_to_play = value
+		availablility_updated.emit()
+
 var suit:StringName = Names.suit_unassigned
 var value:int = 0
 var print_string:String:

@@ -25,7 +25,7 @@ region = Rect2(9, 9, 46, 54)
 atlas = ExtResource("6_he8ao")
 region = Rect2(18, 7, 27, 50.270485)
 
-[node name="UICard" type="Control" node_paths=PackedStringArray("colour_swatch", "value_label", "upside_down_value_label", "angel_icon", "devil_icon", "moon_icon", "sun_icon")]
+[node name="UICard" type="Control" node_paths=PackedStringArray("colour_swatch", "darkener", "value_label", "upside_down_value_label", "angel_icon", "devil_icon", "moon_icon", "sun_icon")]
 custom_minimum_size = Vector2(100, 120)
 layout_mode = 3
 anchors_preset = 8
@@ -36,13 +36,14 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_dmd33")
-colour_swatch = NodePath("Button/ColorRect")
-value_label = NodePath("Button/NinePatchRect/MarginContainer/Value")
-upside_down_value_label = NodePath("Button/NinePatchRect/MarginContainer/UpsideDownValue/UpsideDownValue")
-angel_icon = NodePath("Button/NinePatchRect/MarginContainer/AngelIcon")
-devil_icon = NodePath("Button/NinePatchRect/MarginContainer/DevilIcon")
-moon_icon = NodePath("Button/NinePatchRect/MarginContainer/MoonIcon")
-sun_icon = NodePath("Button/NinePatchRect/MarginContainer/SunIcon")
+colour_swatch = NodePath("Button/Background")
+darkener = NodePath("Button/Darkener")
+value_label = NodePath("Button/MarginContainer/Value")
+upside_down_value_label = NodePath("Button/MarginContainer/UpsideDownValue/UpsideDownValue")
+angel_icon = NodePath("Button/MarginContainer/AngelIcon")
+devil_icon = NodePath("Button/MarginContainer/DevilIcon")
+moon_icon = NodePath("Button/MarginContainer/MoonIcon")
+sun_icon = NodePath("Button/MarginContainer/SunIcon")
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 1
@@ -53,7 +54,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/normal = SubResource("StyleBoxEmpty_tidp0")
 
-[node name="ColorRect" type="ColorRect" parent="Button"]
+[node name="Background" type="ColorRect" parent="Button"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -67,20 +68,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.47, 0.47, 0.47, 1)
 
-[node name="NinePatchRect" type="NinePatchRect" parent="Button"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_tidp0")
-patch_margin_left = 10
-patch_margin_top = 10
-patch_margin_right = 10
-patch_margin_bottom = 10
-
-[node name="MarginContainer" type="MarginContainer" parent="Button/NinePatchRect"]
+[node name="MarginContainer" type="MarginContainer" parent="Button"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -92,30 +80,30 @@ theme_override_constants/margin_top = 12
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 12
 
-[node name="AngelIcon" type="TextureRect" parent="Button/NinePatchRect/MarginContainer"]
+[node name="AngelIcon" type="TextureRect" parent="Button/MarginContainer"]
 visible = false
 layout_mode = 2
 texture = SubResource("AtlasTexture_xb8ga")
 stretch_mode = 5
 
-[node name="DevilIcon" type="TextureRect" parent="Button/NinePatchRect/MarginContainer"]
+[node name="DevilIcon" type="TextureRect" parent="Button/MarginContainer"]
 layout_mode = 2
 texture = SubResource("AtlasTexture_q1mwu")
 stretch_mode = 5
 
-[node name="MoonIcon" type="TextureRect" parent="Button/NinePatchRect/MarginContainer"]
+[node name="MoonIcon" type="TextureRect" parent="Button/MarginContainer"]
 visible = false
 layout_mode = 2
 texture = SubResource("AtlasTexture_he8ao")
 stretch_mode = 5
 
-[node name="SunIcon" type="TextureRect" parent="Button/NinePatchRect/MarginContainer"]
+[node name="SunIcon" type="TextureRect" parent="Button/MarginContainer"]
 visible = false
 layout_mode = 2
 texture = SubResource("AtlasTexture_31kfb")
 stretch_mode = 5
 
-[node name="Value" type="Label" parent="Button/NinePatchRect/MarginContainer"]
+[node name="Value" type="Label" parent="Button/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
@@ -124,11 +112,11 @@ text = "10"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="UpsideDownValue" type="Control" parent="Button/NinePatchRect/MarginContainer"]
+[node name="UpsideDownValue" type="Control" parent="Button/MarginContainer"]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="UpsideDownValue" type="Label" parent="Button/NinePatchRect/MarginContainer/UpsideDownValue"]
+[node name="UpsideDownValue" type="Label" parent="Button/MarginContainer/UpsideDownValue"]
 layout_mode = 0
 offset_right = 80.0
 offset_bottom = 96.0
@@ -139,5 +127,33 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 10
 text = "10"
+
+[node name="Darkener" type="ColorRect" parent="Button"]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = -3.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.47058824)
+
+[node name="Border" type="NinePatchRect" parent="Button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_tidp0")
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 10
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

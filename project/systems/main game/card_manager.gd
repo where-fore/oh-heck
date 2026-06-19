@@ -65,7 +65,7 @@ func start_hand() -> void:
 	next_leader_index += 1
 	if next_leader_index > all_gameplayers.size() - 1: next_leader_index = 0
 	
-	current_turn.start_turn()
+	start_next_turn()
 
 func check_and_play_card(gameplayer:GamePlayer, card:Card) -> void:
 	if gameplayer == current_turn:
@@ -76,7 +76,7 @@ func check_and_play_card(gameplayer:GamePlayer, card:Card) -> void:
 		if gameplayer == player: current_turn = enemy
 		elif gameplayer == enemy: current_turn = player
 		
-		if not check_if_round_over(): current_turn.start_turn()
+		if not check_if_round_over(): start_next_turn()
 
 func check_if_round_over() -> bool:
 	for gameplayer:GamePlayer in all_gameplayers:
@@ -99,7 +99,24 @@ func end_round() -> void:
 	
 	current_suit = unset_suit
 	if should_end_hand: end_hand()
-	else: current_turn.start_turn()
+	else: start_next_turn()
+
+func start_next_turn() -> void:
+	for card:Card in current_turn.hand.cards_in_hand:
+			card.available_to_play = true
+	
+	var cards_of_current_suit:int = 0
+	for card:Card in current_turn.hand.cards_in_hand:
+		if card.suit != current_suit:
+			card.available_to_play = false
+		if card.suit == current_suit:
+			cards_of_current_suit += 1
+	
+	if cards_of_current_suit == 0:
+		for card:Card in current_turn.hand.cards_in_hand:
+				card.available_to_play = true
+	
+	current_turn.start_turn()
 
 func find_and_award_winner() -> void:
 	if not check_highest_of_suit(Rules.current_prime):

@@ -3,6 +3,7 @@ class_name UICard
 
 var card:Card
 @export var colour_swatch:ColorRect
+@export var darkener:ColorRect
 @export var value_label:Label
 @export var upside_down_value_label:Label
 
@@ -16,6 +17,7 @@ signal ui_card_selected(ui_card:UICard)
 func setup(card_to_assign:Card) -> void:
 	
 	card = card_to_assign
+	card.availablility_updated.connect(check_to_darken)
 	
 	disable_all_icons()
 	
@@ -36,9 +38,13 @@ func setup(card_to_assign:Card) -> void:
 	value_label.text = str(card.value)
 	upside_down_value_label.text = str(card.value)
 
+func check_to_darken() -> void:
+	if not card.available_to_play: darkener.visible = true
+	elif card.available_to_play: darkener.visible = false
+
 func disable_all_icons() -> void:
 	for icon:TextureRect in icons:
 		icon.visible = false
 
 func _on_button_pressed() -> void:
-	ui_card_selected.emit(self)
+	if card.available_to_play: ui_card_selected.emit(self)
