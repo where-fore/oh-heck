@@ -1,35 +1,23 @@
 right now
 --------------
 
-ui: need ui_card which holds a reference to a card
-a ui_hand which holds ui_cards, and lets you press those card buttons
 
 
 
 
-hand -> playmat. opponent goes hand -> playmat.
-manager hears both signals are done. compares playmats, awards winner a trick. discards all playmat contents
-
-i want ui cards for each player and opponent
-	shows what's in your hand
-	clicking them puts them into play
-
-then i want the game manager to make you take turns
-then i want the manager to score after each player has taken their turn (1 each)
+turn based logic:
+	manager expects one player to play (their hand lights up (other players hand darkens))
+	once that player selects a card, expect the other to play
+	once all players have played, find winner
+		compare playmats, decide the owner of the winning card gets to take_trick()
+		clear playmats
+	repeat, until one player tries to take a turn with 0 cards in hand
 
 ---------------------------------------------------------
 required
 ---------------------------------------------------------
 
 basic gameplay:
-	game ui
-		card objects
-			ui component that draws the data (including mapping sprites and text to the data)
-		hand to hold cards
-			ui component that draws that data
-		play mat
-			holds cards
-			each player has a playmat
 	see prime suit, draw a hand, make a bid
 		this is a game flow manager
 	enemy ai does the same (but the bid can't make equal to hand size)
@@ -70,6 +58,15 @@ settings menu
 sfx for playing cards/using ui
 backing music
 
+
+
+
+clean up the cards
+	maybe do the classic 4 numbers in corners, instead of one big central
+	do a pass on devil wings to make more different from angel wings
+	maybe more moon stars? a comet in the corner?
+	clean up the border a bit, it feels a bit too sharp/low res, esp the prongs
+	another pass at the art, but upside down
 
 
 
@@ -119,6 +116,12 @@ unique effect cards:
 	card that makes you draw 2 more cards
 	
 
+
+angel: #DBCBD8
+demon: #B20D30
+moon: #564787
+sun: #F7B53B
+background: #292E1E | #52050A
 
 
 

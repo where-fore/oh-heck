@@ -1,0 +1,9 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://bdxaqsxf54lpm"]
+
+[ext_resource type="FontFile" uid="uid://ctm8jkly7lbht" path="res://ui resources/fonts/dogicapixelbold.ttf" id="1_31hxk"]
+
+[resource]
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/constants/outline_size = 5
+Label/font_sizes/font_size = 20
+Label/fonts/font = ExtResource("1_31hxk")

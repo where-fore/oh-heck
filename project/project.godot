@@ -34,6 +34,11 @@ window/size/viewport_width=960
 window/size/viewport_height=540
 window/stretch/mode="viewport"
 
+[gui]
+
+theme/custom="uid://bdxaqsxf54lpm"
+theme/custom_font="uid://ctm8jkly7lbht"
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0

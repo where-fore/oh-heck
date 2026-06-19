@@ -4,6 +4,8 @@ class_name UICard
 var card:Card
 @export var colour_swatch:ColorRect
 @export var value_label:Label
+@export var upside_down_value_label:Label
+
 @export var angel_icon:TextureRect
 @export var devil_icon:TextureRect
 @export var moon_icon:TextureRect
@@ -32,6 +34,7 @@ func setup(card_to_assign:Card) -> void:
 			moon_icon.visible = true
 	
 	value_label.text = str(card.value)
+	upside_down_value_label.text = str(card.value)
 
 func disable_all_icons() -> void:
 	for icon:TextureRect in icons:

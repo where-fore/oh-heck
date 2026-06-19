@@ -25,7 +25,7 @@ region = Rect2(9, 9, 46, 54)
 atlas = ExtResource("6_he8ao")
 region = Rect2(18, 7, 27, 50.270485)
 
-[node name="UICard" type="Control" node_paths=PackedStringArray("colour_swatch", "value_label", "angel_icon", "devil_icon", "moon_icon", "sun_icon")]
+[node name="UICard" type="Control" node_paths=PackedStringArray("colour_swatch", "value_label", "upside_down_value_label", "angel_icon", "devil_icon", "moon_icon", "sun_icon")]
 custom_minimum_size = Vector2(100, 120)
 layout_mode = 3
 anchors_preset = 8
@@ -38,6 +38,7 @@ grow_vertical = 2
 script = ExtResource("1_dmd33")
 colour_swatch = NodePath("Button/ColorRect")
 value_label = NodePath("Button/NinePatchRect/MarginContainer/Value")
+upside_down_value_label = NodePath("Button/NinePatchRect/MarginContainer/UpsideDownValue/UpsideDownValue")
 angel_icon = NodePath("Button/NinePatchRect/MarginContainer/AngelIcon")
 devil_icon = NodePath("Button/NinePatchRect/MarginContainer/DevilIcon")
 moon_icon = NodePath("Button/NinePatchRect/MarginContainer/MoonIcon")
@@ -119,9 +120,24 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 24
 text = "10"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="UpsideDownValue" type="Control" parent="Button/NinePatchRect/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="UpsideDownValue" type="Label" parent="Button/NinePatchRect/MarginContainer/UpsideDownValue"]
+layout_mode = 0
+offset_right = 80.0
+offset_bottom = 96.0
+rotation = 3.1415927
+pivot_offset = Vector2(40, 48)
+size_flags_vertical = 3
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 10
+text = "10"
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
