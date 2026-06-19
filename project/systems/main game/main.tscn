@@ -10,6 +10,15 @@
 
 [node name="MainUI" type="CanvasLayer" parent="."]
 
+[node name="ColorRect" type="ColorRect" parent="MainUI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.32156864, 0.019607844, 0.039215688, 1)
+
 [node name="Control" type="Control" parent="MainUI"]
 layout_mode = 3
 anchors_preset = 15
