@@ -19,10 +19,7 @@ func setup(game_player_to_assign:GamePlayer) -> void:
 		game_player.hand.card_removed.connect(delete_ui_card)
 
 func play_card_from_ui_card(ui_card:UICard) -> void:
-	game_player.play_card(ui_card.card)
-
-func discard_card_from_ui_card(ui_card:UICard) -> void:
-	game_player.hand.discard_card(ui_card.card)
+	UiEvents.card_selected_to_play.emit(game_player, ui_card.card)
 
 func recreate_hand() -> void:
 	ui_card_container.clear_cards()

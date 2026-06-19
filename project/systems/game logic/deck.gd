@@ -24,6 +24,6 @@ func shuffle_deck(cards_to_shuffle_in:Array[Card] = []) -> void:
 	cards_in_deck.shuffle()
 
 func draw_top_card() -> Card:
+	if not cards_in_deck: push_error("deck was empty")
 	var card_to_draw:Card = cards_in_deck.pop_back()
-	print("drew: ", card_to_draw.print_string)
 	return card_to_draw

@@ -2,12 +2,22 @@ right now
 --------------
 
 
+determine prime suit
+end of round: compare playmats, give a gameplayer The Trick
+end of hand: compare Tricks against Bids, award points
+
+
+start hand: give players cards equal to current hand size
+take bids
+round: each gameplayer takes their turn
+end of round: compare playmats, give a gameplayer The Trick
+hand completed after the round ends when a players hand has reached 0 cards - ie. don't start a new round if any players have 0 cards
+end of hand: compare Tricks against Bids, award points
+new hand size, new hand
 
 
 
 turn based logic:
-	manager expects one player to play (their hand lights up (other players hand darkens))
-	once that player selects a card, expect the other to play
 	once all players have played, find winner
 		compare playmats, decide the owner of the winning card gets to take_trick()
 		clear playmats
@@ -16,6 +26,10 @@ turn based logic:
 ---------------------------------------------------------
 required
 ---------------------------------------------------------
+
+decide if i want to force players to follow suit
+
+bugfix - currently you can click cards almost whenever, not explict allowing
 
 basic gameplay:
 	see prime suit, draw a hand, make a bid
@@ -42,6 +56,13 @@ questions to answer:
 ----------------------------------------------------------------------------
 okay it'd be really good
 ----------------------------------------------------------------------------
+
+draw a nice back to the cards, for the deck and enemy hand
+
+probably want some asymmetry asap into gameplay - have the demon with more cards in hand, or something like that
+
+ui flow feel:
+	turn indicator, maybe at least darken cards if not turn
 
 get a basic colour palette (probably ui base deep red; demon cards bright red; moon purple/grey; angel white/yellow/gold)
 
@@ -114,7 +135,11 @@ unique effect cards:
 	card that auto wins trick, auto loses trick
 	card that makes next card do something different (next card trump, next card value + 3, next card auto wins or loses)
 	card that makes you draw 2 more cards
-	
+	cards that stack the deck, either for your next hand, or next draw if you have mid-hand-draw -> make sure to check shuffle timings
+	cards that make people discard (random or choice) - this shortens the hand
+	cards that do something to the person who wins them as a trick.. maybe lingering effects like -2 to value or +2 to value?
+	cards that change bids, yours or opponents. swap bids?
+	cards which increase points won from bidding, or losing the bid, or tricks taken
 
 
 angel: #DBCBD8
