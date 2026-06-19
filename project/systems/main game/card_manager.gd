@@ -3,7 +3,7 @@ extends Node2D
 @export var deck:Deck
 @export var player:GamePlayer
 @export var enemy:GamePlayer
-@export var discard_pile:Hand
+@export var discard_pile:DiscardPile
 
 func _ready() -> void:
 	deck.setup()
@@ -14,7 +14,7 @@ func draw_a_card() -> void:
 	player.hand.add_card(deck.draw_top_card())
 
 func discard_hand() -> void:
-	discard_pile.add_cards(player.hand.discard_hand())
+	player.hand.discard_hand()
 
 func print_card_array_by_suit(card_array:Array[Card]) -> void:
 	print("cards in array: ", card_array.size())
@@ -63,7 +63,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		@warning_ignore("unsafe_property_access")
 		if event.keycode == KEY_5:
 			print_debug("discarding hand...")
-			discard_pile.add_cards(player.hand.discard_hand())
+			discard_hand()
 		
 		@warning_ignore("unsafe_property_access")
 		if event.keycode == KEY_6:
@@ -73,4 +73,4 @@ func _unhandled_input(event: InputEvent) -> void:
 		@warning_ignore("unsafe_property_access")
 		if event.keycode == KEY_7:
 			print_debug("shuffling discard pile in...")
-			deck.shuffle_deck(discard_pile.discard_hand())
+			deck.shuffle_deck(discard_pile.return_discard_pile())

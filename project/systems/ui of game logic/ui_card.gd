@@ -4,6 +4,7 @@ class_name UICard
 var card:Card
 @export var colour_swatch:ColorRect
 @export var value_label:Label
+signal ui_card_selected(ui_card:UICard)
 
 func setup(card_to_assign:Card) -> void:
 	card = card_to_assign
@@ -18,3 +19,7 @@ func setup(card_to_assign:Card) -> void:
 			colour_swatch.color = Names.moon_colour
 	
 	value_label.text = str(card.value)
+
+
+func _on_button_pressed() -> void:
+	ui_card_selected.emit(self)

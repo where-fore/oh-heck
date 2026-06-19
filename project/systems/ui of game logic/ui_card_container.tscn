@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://7ukqvkuj3l5e"]
+
+[ext_resource type="PackedScene" uid="uid://bwrfntpak2rds" path="res://systems/ui of game logic/ui_card.tscn" id="1_03eac"]
+
+[node name="UICardContainer" type="HBoxContainer"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -120.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="UICard" parent="." instance=ExtResource("1_03eac")]
+layout_mode = 2
+
+[node name="UICard2" parent="." instance=ExtResource("1_03eac")]
+layout_mode = 2
+
+[node name="UICard3" parent="." instance=ExtResource("1_03eac")]
+layout_mode = 2
