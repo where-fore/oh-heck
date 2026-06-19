@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://7ukqvkuj3l5e"]
+[gd_scene load_steps=3 format=3 uid="uid://7ukqvkuj3l5e"]
 
 [ext_resource type="PackedScene" uid="uid://bwrfntpak2rds" path="res://systems/ui of game logic/ui_card.tscn" id="1_03eac"]
+[ext_resource type="Script" uid="uid://wvmtkr1no4mo" path="res://systems/ui of game logic/ui_card_container.gd" id="1_ketg4"]
 
 [node name="UICardContainer" type="HBoxContainer"]
 anchors_preset = 12
@@ -12,6 +13,7 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 16
 alignment = 1
+script = ExtResource("1_ketg4")
 
 [node name="UICard" parent="." instance=ExtResource("1_03eac")]
 layout_mode = 2

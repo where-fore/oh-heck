@@ -5,7 +5,7 @@ var game_player:GamePlayer
 @export var playmat:bool = false
 
 @export_category("Initialization")
-@export var ui_card_container:Container
+@export var ui_card_container:UICardContainer
 @export var UICard_base_scene:PackedScene
 
 func setup(game_player_to_assign:GamePlayer) -> void:
@@ -25,8 +25,7 @@ func discard_card_from_ui_card(ui_card:UICard) -> void:
 	game_player.hand.discard_card(ui_card.card)
 
 func recreate_hand() -> void:
-	for child:Node in ui_card_container.get_children():
-		child.queue_free()
+	ui_card_container.clear_cards()
 	for card:Card in game_player.hand.cards_in_hand:
 		create_ui_card(card)
 
