@@ -2,6 +2,7 @@ extends Control
 class_name UICard
 
 var card:Card
+var should_be_hidden:bool = false
 @export var colour_swatch:ColorRect
 @export var darkener:ColorRect
 @export var value_label:Label
@@ -18,9 +19,11 @@ signal ui_card_selected(ui_card:UICard)
 func setup(card_to_assign:Card) -> void:
 	card = card_to_assign
 	card.availablility_updated.connect(check_to_darken)
-	
 	disable_all_icons()
-	
+	set_icon()
+	set_labels()
+
+func set_icon() -> void:
 	match card.suit:
 		Names.suit_devil:
 			colour_swatch.color = Names.devil_colour
@@ -34,11 +37,13 @@ func setup(card_to_assign:Card) -> void:
 		Names.suit_moon:
 			colour_swatch.color = Names.moon_colour
 			moon_icon.visible = true
-	
+
+func set_labels() -> void:
 	value_label.text = str(card.value)
 	upside_down_value_label.text = str(card.value)
 
 func hide_card() -> void:
+	should_be_hidden = true
 	colour_swatch.color = Names.basic_color
 	value_label.visible = false
 	upside_down_value_label.visible = false
@@ -46,9 +51,17 @@ func hide_card() -> void:
 	back_icon.visible = true
 	enable_darkener()
 
+func show_card() -> void:
+	should_be_hidden = false
+	value_label.visible = true
+	upside_down_value_label.visible = true
+	set_icon()
+	set_labels()
+	disable_darkener()
+
 func check_to_darken() -> void:
 	if not card.available_to_play: enable_darkener()
-	elif card.available_to_play: disable_darkener()
+	elif card.available_to_play and not should_be_hidden: disable_darkener()
 
 func enable_darkener() -> void:
 	darkener.visible = true

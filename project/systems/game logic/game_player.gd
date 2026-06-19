@@ -39,6 +39,7 @@ func start_turn() -> void:
 
 func play_card(card_to_play:Card) -> void:
 	playmat.add_card(card_to_play)
+	card_to_play.available_to_play = true
 	hand.remove_card(card_to_play)
 	have_played_this_round = true
 

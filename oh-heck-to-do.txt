@@ -1,9 +1,11 @@
 right now
 --------------
 
-current_bid_sum not reset
+card manager tells each card in your hand if it's available or not
+moving a card to playmat should make it available again
+	
 
-currently not restricted to play on suit
+
 
 basic ui flow
 	after all cards are played, pause
@@ -73,6 +75,8 @@ backing music
 
 clean up the card visuals:
 	maybe do the classic 4 numbers in corners, instead of one big central
+		can also just reverse the number label 180 if it's upside down, keep the card border facing a certain way but reverse label only
+		or just don't even reverse the cards lmao
 	do a pass on devil wings to make more different from angel wings
 	maybe more moon stars? a comet in the corner?
 	clean up the border a bit, it feels a bit too sharp/low res, esp the prongs
@@ -151,3 +155,4 @@ alright that's cool but idk if i have time
 
 multiplayer!!!
 	hot seat: have hands invisible unless you hover over them, and have each real life player cover their real life eyes while their opponent looks at their hand
+		have a button to reveal hand, makes a sound, and each seat makes a unique sound (so you can hear if the other person revealed your hand)

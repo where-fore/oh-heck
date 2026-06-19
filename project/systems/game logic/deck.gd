@@ -7,7 +7,7 @@ func setup() -> void:
 	populate_basic_deck()
 
 func populate_basic_deck() -> void:
-	var max_value:int = 10
+	var max_value:int = Rules.max_card_value_to_create
 	for suit in Names.suits:
 		var current_value_to_assign:int = 1
 		while current_value_to_assign <= max_value:
