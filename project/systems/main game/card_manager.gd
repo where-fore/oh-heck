@@ -92,11 +92,14 @@ func end_round() -> void:
 	
 	var should_end_hand:bool = false
 	
+	await get_tree().create_timer(1.25).timeout
+	
 	for gameplayer:GamePlayer in all_gameplayers:
 		gameplayer.playmat.discard_hand()
 		gameplayer.have_played_this_round = false
 		if gameplayer.hand.cards_in_hand.size() <= 0:
 			should_end_hand = true
+	
 	
 	current_suit = unset_suit
 	if should_end_hand: end_hand()

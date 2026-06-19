@@ -10,6 +10,7 @@ var game_player:GamePlayer
 
 func setup(game_player_to_assign:GamePlayer) -> void:
 	game_player = game_player_to_assign
+	
 	recreate_hand()
 	if playmat:
 		game_player.playmat.card_added.connect(create_ui_card)
@@ -41,6 +42,7 @@ func delete_ui_card(card_to_delete:Card) -> void:
 	
 	for ui_card:UICard in ui_card_container.get_children():
 		if ui_card.card == card_to_delete:
+			ui_card.unsetup()
 			ui_card.queue_free()
 			deleted = true
 	

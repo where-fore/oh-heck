@@ -1,12 +1,23 @@
-[gd_scene load_steps=8 format=3 uid="uid://cwaeulhb1hvn"]
+[gd_scene load_steps=14 format=3 uid="uid://cwaeulhb1hvn"]
 
 [ext_resource type="Script" uid="uid://dk2q2ee2nslgr" path="res://systems/main game/card_manager.gd" id="1_cqvht"]
 [ext_resource type="PackedScene" uid="uid://cafmoo6vrwq2m" path="res://systems/game logic/deck.tscn" id="1_e0pva"]
 [ext_resource type="PackedScene" uid="uid://cwd5utjj5grbm" path="res://systems/ui of game logic/ui_game_player.tscn" id="1_h0t3a"]
 [ext_resource type="Script" uid="uid://dj5e1guj63ned" path="res://systems/main game/bidding_interface.gd" id="2_12n6d"]
 [ext_resource type="PackedScene" uid="uid://qiwyiv44ew30" path="res://systems/ui of game logic/prime_card.tscn" id="2_ygcjw"]
+[ext_resource type="Script" uid="uid://chv8j2g2jvpl4" path="res://systems/main game/tutorial.gd" id="4_dq3g3"]
 [ext_resource type="PackedScene" uid="uid://dh1aiemun7tri" path="res://systems/game logic/discard_pile.tscn" id="4_h0t3a"]
 [ext_resource type="PackedScene" uid="uid://dx6yfgor4ql7l" path="res://systems/game logic/game_player.tscn" id="4_i5fcm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dq3g3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_63hud"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o4iuf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vki74"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3w2pm"]
 
 [node name="Main" type="Node2D"]
 
@@ -130,6 +141,58 @@ offset_top = -22.0
 grow_horizontal = 0
 text = "-1"
 
+[node name="Tutorial" type="Control" parent="MainUI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_dq3g3")
+
+[node name="ColorRect" type="ColorRect" parent="MainUI/Tutorial"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.8627451)
+
+[node name="Label" type="Label" parent="MainUI/Tutorial/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 1
+theme_override_constants/line_spacing = 40
+text = "OH HELL
+
+CARDS GO UP TO 6
+PRIME SUIT ALWAYS WINS
+YOU HAVE TO FOLLOW SUIT
+FOLLOWED SUIT WINS
+
+YOU BID HOW MANY TRICKS YOU WIN
+YOU GET POINTS FOR GETTING YOUR BID CORRECT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="MainUI/Tutorial"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_dq3g3")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_63hud")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_o4iuf")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_vki74")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_3w2pm")
+
 [node name="GameLogicManager" type="Node2D" parent="."]
 
 [node name="CardManager" type="Node2D" parent="GameLogicManager" node_paths=PackedStringArray("deck", "player", "enemy", "discard_pile")]
@@ -150,5 +213,6 @@ discard_pile = NodePath("DiscardPile")
 [connection signal="pressed" from="MainUI/MarginContainer/Bidding Interface/HBoxContainer/LineEdit/SubmitButton" to="MainUI/MarginContainer/Bidding Interface" method="_on_submit_button_pressed"]
 [connection signal="pressed" from="MainUI/MarginContainer/Bidding Interface/HBoxContainer/LineEdit/Up" to="MainUI/MarginContainer/Bidding Interface" method="_on_up_pressed"]
 [connection signal="pressed" from="MainUI/MarginContainer/Bidding Interface/HBoxContainer/LineEdit/Down" to="MainUI/MarginContainer/Bidding Interface" method="_on_down_pressed"]
+[connection signal="pressed" from="MainUI/Tutorial/Button" to="MainUI/Tutorial" method="_on_button_pressed"]
 
 [editable path="MainUI/MarginContainer/GameMat/Enemy"]

@@ -35,11 +35,14 @@ func _ready() -> void:
 	playmat.card_removed.connect(func(_unused_data) -> void: playmat.recalculate_total())
 
 func start_turn() -> void:
-	if controlled_by_ai: UiEvents.card_selected_to_play.emit(self, ai_choose_card())
+	if controlled_by_ai:
+		await get_tree().create_timer(randfn(1,0.25)).timeout
+		UiEvents.card_selected_to_play.emit(self, ai_choose_card())
 
 func play_card(card_to_play:Card) -> void:
 	playmat.add_card(card_to_play)
 	card_to_play.available_to_play = true
+	
 	hand.remove_card(card_to_play)
 	have_played_this_round = true
 

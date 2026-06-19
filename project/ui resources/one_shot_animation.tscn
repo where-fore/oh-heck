@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://byy623tsrvo42"]
+
+[ext_resource type="Script" uid="uid://nehixbbv8nrq" path="res://ui resources/one_shot_animation.gd" id="1_pxqo5"]
+
+[node name="OneShotAnimation" type="Sprite2D"]
+script = ExtResource("1_pxqo5")

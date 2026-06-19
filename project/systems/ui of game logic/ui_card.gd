@@ -23,6 +23,9 @@ func setup(card_to_assign:Card) -> void:
 	set_icon()
 	set_labels()
 
+func unsetup() -> void:
+	card.availablility_updated.disconnect(check_to_darken)
+
 func set_icon() -> void:
 	match card.suit:
 		Names.suit_devil:

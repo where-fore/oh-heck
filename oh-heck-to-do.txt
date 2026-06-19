@@ -1,17 +1,22 @@
 right now
 --------------
 
-card manager tells each card in your hand if it's available or not
-moving a card to playmat should make it available again
-	
-
-
+tween scale from 2 to 1 quite quickly
+tween top to bottom quick quickly
+rest a bit
+slide back up
 
 basic ui flow
 	after all cards are played, pause
 	show who won
 	reset
-	
+
+card playing animation:
+	player: instant
+	enemy:
+		giant demon hand hits table, rises away revealing card
+		pops up from middle of table
+		
 
 ---------------------------------------------------------
 required
@@ -83,7 +88,9 @@ clean up the card visuals:
 	another pass at the art, but upside down
 
 
-
+	if game_player.controlled_by_ai and not playmat:
+		ui_card_container.set("theme_override_constants/separation", -48)
+	so i have space for chat bubbles etc
 
 
 ----------------------------------------------------------------------------
