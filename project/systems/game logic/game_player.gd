@@ -61,3 +61,12 @@ func award_points_from_hand() -> void:
 func reset_per_hand() -> void:
 	current_bid = 0
 	current_tricks = 0
+
+func ai_choose_bid(current_sum:int, maximum_hand_size:int) -> void:
+	var found_a_bid:bool = false
+	var found_bid:int
+	while found_a_bid == false:
+		found_bid = randi_range(0, hand.cards_in_hand.size())
+		found_a_bid = Rules.validate_bid(found_bid, current_sum, maximum_hand_size)
+	current_bid = found_bid
+	UiEvents.bid_added.emit(current_bid)

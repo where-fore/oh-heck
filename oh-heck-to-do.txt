@@ -1,13 +1,9 @@
 right now
 --------------
 
+current_bid_sum not reset
 
-rudimentary ai
-	play at random
-	or smarter
-		if under bid, play highest
-		if over bid, play lowest
-
+currently not restricted to play on suit
 
 basic ui flow
 	after all cards are played, pause
@@ -31,10 +27,13 @@ figure out end condition
 	number of rounds? 2 - 7 - 2, then that's it? compare score?
 	compare after every 7 peak? how does enemy scale, if you're getting roguelike card powers? just cheating numbers?
 
+hide enemy cards somehow
 
 ----------------------------------------------------------------------------
 okay it'd be really good
 ----------------------------------------------------------------------------
+
+bid getting rejected sets it to 0, which then if you double click it accepts as 0
 
 little dialogue pops ups, at least for tutorialization, would be great
 
@@ -59,6 +58,9 @@ advanced gameplay:
 	after so many rounds, pick a card to add to the deck (enemy can't draw it, not sure how to program this. shuffle the deck and draw again? draw top card, but skip if angel and draw second top?)
 	have those cards with custom effects (takes the trick no matter what, loses the trick no matter what, takes the opponents card into your hand)
 	ai better at game somehow, there's probably improvements
+	first draft:
+		if under bid, play highest
+		if over bid, play lowest
 
 intro cutscene
 dialogue popups

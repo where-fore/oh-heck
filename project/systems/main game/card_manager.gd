@@ -8,6 +8,7 @@ extends Node2D
 var current_turn:GamePlayer
 var next_leader_index:int = 0
 var current_hand_size:int = 3
+var current_bid_sum:int = 0
 var current_suit:StringName = unset_suit
 const unset_suit:StringName = &"SUIT NOT SET"
 
@@ -16,7 +17,8 @@ func _ready() -> void:
 	UiEvents.send_game_player_to_top_ui.emit(enemy)
 	UiEvents.send_game_player_to_bottom_ui.emit(player)
 	UiEvents.card_selected_to_play.connect(check_and_play_card)
-	UiEvents.bid_set_to.connect(set_player_bid_to)
+	UiEvents.player_bid_attempted.connect(attempt_player_bid)
+	UiEvents.bid_added.connect(sum_bid)
 	
 	current_turn = player
 	
@@ -24,8 +26,16 @@ func _ready() -> void:
 	
 	start_hand()
 
-func set_player_bid_to(bid:int) -> void:
-	player.current_bid = bid
+func sum_bid(new_bid:int) -> void:
+	current_bid_sum += new_bid
+
+func attempt_player_bid(bid:int) -> void:
+	if Rules.validate_bid(bid, current_bid_sum, current_hand_size):
+		current_bid_sum += bid
+		player.current_bid = bid
+		UiEvents.player_bid_accepted.emit()
+	else:
+		UiEvents.player_bid_rejected.emit()
 
 func start_hand() -> void:
 	deck.shuffle_deck(discard_pile.return_discard_pile())
@@ -38,8 +48,18 @@ func start_hand() -> void:
 	
 	UiEvents.set_prime_card.emit(deck.draw_top_card())
 	
-	UiEvents.begin_bidding.emit()
-	await UiEvents.end_bidding
+	var bidding_gameplayers:Array[GamePlayer]
+	bidding_gameplayers.append(all_gameplayers[next_leader_index])
+	for gameplayer:GamePlayer in all_gameplayers:
+		if gameplayer not in bidding_gameplayers:
+			bidding_gameplayers.append(gameplayer)
+	
+	for gameplayer:GamePlayer in bidding_gameplayers:
+		if gameplayer.controlled_by_ai:
+			gameplayer.ai_choose_bid(current_bid_sum, current_hand_size)
+		else:
+			UiEvents.begin_bidding.emit()
+			await UiEvents.end_bidding
 	
 	current_turn = all_gameplayers[next_leader_index]
 	next_leader_index += 1
@@ -123,8 +143,9 @@ func end_hand() -> void:
 		gameplayer.complete_hand()
 	UiEvents.hand_ended.emit()
 	
+	current_bid_sum = 0
 	current_hand_size += 1
-		#make this do the 2 -> 7 -> 2 curve
+	
 	start_hand()
 
 func _unhandled_input(event: InputEvent) -> void:
