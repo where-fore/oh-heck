@@ -12,9 +12,13 @@ func _ready() -> void:
 
 func draw_a_card() -> void:
 	player.hand.add_card(deck.draw_top_card())
+	enemy.hand.add_card(deck.draw_top_card())
 
 func discard_hand() -> void:
 	player.hand.discard_hand()
+	player.playmat.discard_hand()
+	enemy.hand.discard_hand()
+	enemy.playmat.discard_hand()
 
 func print_card_array_by_suit(card_array:Array[Card]) -> void:
 	print("cards in array: ", card_array.size())

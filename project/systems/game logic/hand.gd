@@ -15,6 +15,9 @@ func add_cards(new_cards:Array[Card]) -> void:
 func discard_card(card_to_discard:Card) -> void:
 	_discard_card(card_to_discard)
 
+func remove_card(card_to_discard:Card) -> void:
+	_remove_card(card_to_discard)
+
 func discard_hand() -> void:
 	for card:Card in cards_in_hand.duplicate():
 		_discard_card(card)

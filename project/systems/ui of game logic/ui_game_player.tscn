@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://cwd5utjj5grbm"]
+[gd_scene load_steps=3 format=3 uid="uid://cwd5utjj5grbm"]
 
 [ext_resource type="Script" uid="uid://cc18bdiymll11" path="res://systems/ui of game logic/ui_game_player.gd" id="1_r5k52"]
-[ext_resource type="PackedScene" uid="uid://7ukqvkuj3l5e" path="res://systems/ui of game logic/ui_card_container.tscn" id="1_yn03j"]
 [ext_resource type="PackedScene" uid="uid://fpdybr41mhfl" path="res://systems/ui of game logic/ui_hand.tscn" id="2_r5k52"]
 
 [node name="GamePlayer" type="Control" node_paths=PackedStringArray("hand", "playmat")]
@@ -27,8 +26,9 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 8
 
-[node name="Playmat" parent="VBoxContainer" instance=ExtResource("1_yn03j")]
+[node name="Playmat" parent="VBoxContainer" instance=ExtResource("2_r5k52")]
 layout_mode = 2
+playmat = true
 
 [node name="Hand" parent="VBoxContainer" instance=ExtResource("2_r5k52")]
 layout_mode = 2
