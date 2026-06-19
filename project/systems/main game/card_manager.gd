@@ -6,7 +6,10 @@ extends Node2D
 @onready var all_gameplayers:Array[GamePlayer] = [player, enemy]
 @export var discard_pile:DiscardPile
 var current_turn:GamePlayer
+var next_leader_index:int = 0
 var current_hand_size:int = 3
+var current_suit:StringName = unset_suit
+const unset_suit:StringName = &"SUIT NOT SET"
 
 func _ready() -> void:
 	deck.setup()
@@ -31,13 +34,15 @@ func start_hand() -> void:
 			gameplayer.hand.add_card(deck.draw_top_card())
 		cards_dealt_to_all += 1
 	
-	#determine prime suit
+	UiEvents.set_prime_card.emit(deck.draw_top_card())
 	
 	UiEvents.begin_bidding.emit()
 
 func check_and_play_card(gameplayer:GamePlayer, card:Card) -> void:
 	if gameplayer == current_turn:
 		gameplayer.play_card(card)
+		if current_suit == unset_suit:
+			current_suit = card.suit
 		
 		check_if_round_over()
 		
@@ -52,7 +57,7 @@ func check_if_round_over() -> void:
 	end_round()
 
 func end_round() -> void:
-	award_trick_to_winner()
+	find_and_award_winner()
 	
 	var should_end_hand:bool = false
 	
@@ -62,23 +67,49 @@ func end_round() -> void:
 		if gameplayer.hand.cards_in_hand.size() <= 0:
 			should_end_hand = true
 	
+	current_suit = unset_suit
 	if should_end_hand: end_hand()
 
-func award_trick_to_winner() -> void:
-	var winning_gameplayer:GamePlayer
-	var current_highest:int = 0
-	
-	#check prime suits
-	
+func find_and_award_winner() -> void:
+	if not check_highest_of_suit(Rules.current_prime):
+		if not check_highest_of_suit(current_suit):
+			var highest_value:int = 0
+			var winning_gameplayer:GamePlayer = enemy
+			for gameplayer:GamePlayer in all_gameplayers:
+				for card:Card in gameplayer.playmat.cards_in_hand:
+					if card.value > highest_value:
+						highest_value = card.value
+						winning_gameplayer = gameplayer
+			award_trick_to_winner(winning_gameplayer)
+
+func check_highest_of_suit(suit_to_check:StringName) -> bool:
+	var suit_in_play:bool = false
 	for gameplayer:GamePlayer in all_gameplayers:
-		if gameplayer.playmat.running_total > current_highest:
-			current_highest = gameplayer.playmat.running_total
-			winning_gameplayer = gameplayer
-	winning_gameplayer.award_trick()
+		for card:Card in gameplayer.playmat.cards_in_hand:
+			if card.suit == suit_to_check:
+				suit_in_play = true
+	
+	var winning_gameplayer:GamePlayer = null
+	if suit_in_play:
+		var highest_value:int = 0
+		for gameplayer:GamePlayer in all_gameplayers:
+			for card:Card in gameplayer.playmat.cards_in_hand:
+				if card.suit == suit_to_check:
+					if card.value > highest_value:
+						highest_value = card.value
+						winning_gameplayer = gameplayer
+		award_trick_to_winner(winning_gameplayer)
+		return true
+	
+	return false
+
+func award_trick_to_winner(winner:GamePlayer) -> void:
+	winner.award_trick()	
 
 func end_hand() -> void:
 	for gameplayer:GamePlayer in all_gameplayers:
 		gameplayer.complete_hand()
+	UiEvents.hand_ended.emit()
 	
 	current_hand_size += 1
 		#make this do the 2 -> 7 -> 2 curve

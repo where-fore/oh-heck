@@ -1,0 +1,57 @@
+[gd_scene load_steps=3 format=3 uid="uid://qiwyiv44ew30"]
+
+[ext_resource type="PackedScene" uid="uid://bwrfntpak2rds" path="res://systems/ui of game logic/ui_card.tscn" id="1_qiu2c"]
+[ext_resource type="Script" uid="uid://dry8yw85la5mc" path="res://systems/ui of game logic/prime_card.gd" id="1_wo4d5"]
+
+[node name="PrimeCard" type="Control" node_paths=PackedStringArray("ui_card")]
+layout_mode = 3
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 0
+grow_vertical = 2
+script = ExtResource("1_wo4d5")
+ui_card = NodePath("UICard")
+
+[node name="UICard" parent="." instance=ExtResource("1_qiu2c")]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -100.0
+offset_top = -60.0
+offset_bottom = 60.0
+grow_horizontal = 0
+
+[node name="Prime" type="Label" parent="UICard"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -49.0
+offset_top = -24.0
+offset_right = 49.0
+offset_bottom = -6.0
+grow_horizontal = 2
+text = "Prime"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Suit" type="Label" parent="UICard"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -49.0
+offset_top = 6.0
+offset_right = 49.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Suit"
+horizontal_alignment = 1
+vertical_alignment = 1

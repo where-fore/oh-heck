@@ -8,4 +8,6 @@ signal card_selected_to_play(gameplayer:GamePlayer, card:Card)
 signal begin_bidding
 signal end_bidding
 signal bid_set_to(bid:int)
+signal set_prime_card(card:Card)
+signal hand_ended
 @warning_ignore_restore("unused_signal")

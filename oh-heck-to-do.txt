@@ -2,58 +2,42 @@ right now
 --------------
 
 
-determine prime suit
+check following prime when playing cards (maybe highlight those cards?)
+check prime suit when taking tricks
+
+rudimentary ai
+	play at random
+	or smarter
+		if under bid, play highest
+		if over bid, play lowest
 
 
-start hand: give players cards equal to current hand size
-take bids
-round: each gameplayer takes their turn
-end of round: compare playmats, give a gameplayer The Trick
-hand completed after the round ends when a players hand has reached 0 cards - ie. don't start a new round if any players have 0 cards
-end of hand: compare Tricks against Bids, award points
-new hand size, new hand
-
-
-
-turn based logic:
-	once all players have played, find winner
-		compare playmats, decide the owner of the winning card gets to take_trick()
-		clear playmats
-	repeat, until one player tries to take a turn with 0 cards in hand
+basic ui flow
+	after all cards are played, pause
+	show who won
+	reset
+	
 
 ---------------------------------------------------------
 required
 ---------------------------------------------------------
 
-decide if i want to force players to follow suit
-
 bugfix - currently you can click cards almost whenever, not explict allowing
-
-basic gameplay:
-	see prime suit, draw a hand, make a bid
-		this is a game flow manager
-	enemy ai does the same (but the bid can't make equal to hand size)
-	play game
-		play a card, opponent does too, someone takes the trick
-		repeat until no more cards
-		count up tricks taken, award points if tricks = bid
-	repeat, but ai starts the game first. also probably change hand size, 1 -> 7 -> 1, probably
-		
-
-get basic cards (probably just a suit icon, and a number in text) (and a 9patch frame)
-
-
 
 questions to answer:
 	it is required we share a deck, at least of basic cards, for the rules of the game. so how do i add roguelike elements? i can't just add them to the deck can i?
+		yeah i can, just draw player hand first, and enemy hand when trying to draw a 
 
-
-
+figure out end condition
+	number of rounds? 2 - 7 - 2, then that's it? compare score?
+	compare after every 7 peak? how does enemy scale, if you're getting roguelike card powers? just cheating numbers?
 
 
 ----------------------------------------------------------------------------
 okay it'd be really good
 ----------------------------------------------------------------------------
+
+bugfix - fail case if deck is empty and trying to draw (should never really happen, drawing 15 of 52 without effects)
 
 draw a nice back to the cards, for the deck and enemy hand
 
@@ -62,7 +46,11 @@ probably want some asymmetry asap into gameplay - have the demon with more cards
 ui flow feel:
 	turn indicator, maybe at least darken cards if not turn
 
-get a basic colour palette (probably ui base deep red; demon cards bright red; moon purple/grey; angel white/yellow/gold)
+make hand size oscillate
+	if current >= max: direction = falling, size -=1
+	if current <= min: direction = growing, size += 1
+	
+	not sure if this goes in, because maybe game ends after 7?
 
 advanced gameplay:
 	after so many rounds, pick a card to add to the deck (enemy can't draw it, not sure how to program this. shuffle the deck and draw again? draw top card, but skip if angel and draw second top?)
@@ -78,9 +66,7 @@ sfx for playing cards/using ui
 backing music
 
 
-
-
-clean up the cards
+clean up the card visuals:
 	maybe do the classic 4 numbers in corners, instead of one big central
 	do a pass on devil wings to make more different from angel wings
 	maybe more moon stars? a comet in the corner?
@@ -139,6 +125,7 @@ unique effect cards:
 	cards that change bids, yours or opponents. swap bids?
 	cards which increase points won from bidding, or losing the bid, or tricks taken
 	cards that do something when discarded from hand (not played?)
+	cards that change current prime
 
 
 angel: #DBCBD8

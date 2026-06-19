@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://cwaeulhb1hvn"]
+[gd_scene load_steps=9 format=3 uid="uid://cwaeulhb1hvn"]
 
 [ext_resource type="Script" uid="uid://dk2q2ee2nslgr" path="res://systems/main game/card_manager.gd" id="1_cqvht"]
 [ext_resource type="PackedScene" uid="uid://cafmoo6vrwq2m" path="res://systems/game logic/deck.tscn" id="1_e0pva"]
 [ext_resource type="PackedScene" uid="uid://cwd5utjj5grbm" path="res://systems/ui of game logic/ui_game_player.tscn" id="1_h0t3a"]
 [ext_resource type="Script" uid="uid://dj5e1guj63ned" path="res://systems/main game/bidding_interface.gd" id="2_12n6d"]
+[ext_resource type="PackedScene" uid="uid://qiwyiv44ew30" path="res://systems/ui of game logic/prime_card.tscn" id="2_ygcjw"]
+[ext_resource type="Script" uid="uid://dry8yw85la5mc" path="res://systems/ui of game logic/prime_card.gd" id="3_dq3g3"]
 [ext_resource type="PackedScene" uid="uid://dh1aiemun7tri" path="res://systems/game logic/discard_pile.tscn" id="4_h0t3a"]
 [ext_resource type="PackedScene" uid="uid://dx6yfgor4ql7l" path="res://systems/game logic/game_player.tscn" id="4_i5fcm"]
 
@@ -20,31 +22,29 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
-[node name="BackgroundColour" type="ColorRect" parent="MainUI"]
+[node name="MarginContainer" type="MarginContainer" parent="MainUI"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 10.0
-offset_top = 10.0
-offset_right = -10.0
-offset_bottom = -10.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="BackgroundColour" type="ColorRect" parent="MainUI/MarginContainer"]
+layout_mode = 2
 mouse_filter = 2
 color = Color(0.32156864, 0.019607844, 0.039215688, 1)
 
-[node name="GameMat" type="Control" parent="MainUI"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="GameMat" type="Control" parent="MainUI/MarginContainer"]
+layout_mode = 2
 
-[node name="Player" parent="MainUI/GameMat" instance=ExtResource("1_h0t3a")]
+[node name="Player" parent="MainUI/MarginContainer/GameMat" instance=ExtResource("1_h0t3a")]
 layout_mode = 1
 
-[node name="Enemy" parent="MainUI/GameMat" instance=ExtResource("1_h0t3a")]
+[node name="Enemy" parent="MainUI/MarginContainer/GameMat" instance=ExtResource("1_h0t3a")]
 layout_mode = 1
 anchors_preset = 10
 anchor_top = 0.0
@@ -54,21 +54,24 @@ offset_bottom = 260.0
 grow_vertical = 1
 top = true
 
-[node name="VBoxContainer" parent="MainUI/GameMat/Enemy/MarginContainer/Panel" index="0"]
+[node name="VBoxContainer" parent="MainUI/MarginContainer/GameMat/Enemy/Panel" index="0"]
+offset_top = 118.0
+offset_bottom = 366.0
 rotation = 3.1415927
-pivot_offset = Vector2(0, 124)
 
-[node name="Bidding Interface" type="Control" parent="MainUI" node_paths=PackedStringArray("textbox")]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="PrimeCard" parent="MainUI/MarginContainer/GameMat" instance=ExtResource("2_ygcjw")]
+layout_mode = 1
+offset_left = -40.0
+offset_top = -20.0
+offset_bottom = 20.0
+script = ExtResource("3_dq3g3")
+
+[node name="Bidding Interface" type="Control" parent="MainUI/MarginContainer" node_paths=PackedStringArray("textbox")]
+layout_mode = 2
 script = ExtResource("2_12n6d")
 textbox = NodePath("HBoxContainer/LineEdit")
 
-[node name="ColorRect" type="ColorRect" parent="MainUI/Bidding Interface"]
+[node name="ColorRect" type="ColorRect" parent="MainUI/MarginContainer/Bidding Interface"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -77,7 +80,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.47058824)
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MainUI/Bidding Interface"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MainUI/MarginContainer/Bidding Interface"]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -87,18 +90,18 @@ offset_right = 262.0
 offset_bottom = 20.0
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="MainUI/Bidding Interface/HBoxContainer"]
+[node name="Label" type="Label" parent="MainUI/MarginContainer/Bidding Interface/HBoxContainer"]
 layout_mode = 2
 text = "Enter bid:"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="LineEdit" type="LineEdit" parent="MainUI/Bidding Interface/HBoxContainer"]
+[node name="LineEdit" type="LineEdit" parent="MainUI/MarginContainer/Bidding Interface/HBoxContainer"]
 custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 alignment = 1
 
-[node name="SubmitButton" type="Button" parent="MainUI/Bidding Interface/HBoxContainer/LineEdit"]
+[node name="SubmitButton" type="Button" parent="MainUI/MarginContainer/Bidding Interface/HBoxContainer/LineEdit"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -113,13 +116,13 @@ grow_vertical = 0
 theme_override_font_sizes/font_size = 12
 text = "Submit"
 
-[node name="Up" type="Button" parent="MainUI/Bidding Interface/HBoxContainer/LineEdit"]
+[node name="Up" type="Button" parent="MainUI/MarginContainer/Bidding Interface/HBoxContainer/LineEdit"]
 layout_mode = 1
 offset_top = -22.0
 offset_right = 40.0
 text = "+1"
 
-[node name="Down" type="Button" parent="MainUI/Bidding Interface/HBoxContainer/LineEdit"]
+[node name="Down" type="Button" parent="MainUI/MarginContainer/Bidding Interface/HBoxContainer/LineEdit"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -146,8 +149,8 @@ discard_pile = NodePath("DiscardPile")
 
 [node name="Enemy" parent="GameLogicManager/CardManager" instance=ExtResource("4_i5fcm")]
 
-[connection signal="pressed" from="MainUI/Bidding Interface/HBoxContainer/LineEdit/SubmitButton" to="MainUI/Bidding Interface" method="_on_submit_button_pressed"]
-[connection signal="pressed" from="MainUI/Bidding Interface/HBoxContainer/LineEdit/Up" to="MainUI/Bidding Interface" method="_on_up_pressed"]
-[connection signal="pressed" from="MainUI/Bidding Interface/HBoxContainer/LineEdit/Down" to="MainUI/Bidding Interface" method="_on_down_pressed"]
+[connection signal="pressed" from="MainUI/MarginContainer/Bidding Interface/HBoxContainer/LineEdit/SubmitButton" to="MainUI/MarginContainer/Bidding Interface" method="_on_submit_button_pressed"]
+[connection signal="pressed" from="MainUI/MarginContainer/Bidding Interface/HBoxContainer/LineEdit/Up" to="MainUI/MarginContainer/Bidding Interface" method="_on_up_pressed"]
+[connection signal="pressed" from="MainUI/MarginContainer/Bidding Interface/HBoxContainer/LineEdit/Down" to="MainUI/MarginContainer/Bidding Interface" method="_on_down_pressed"]
 
-[editable path="MainUI/GameMat/Enemy"]
+[editable path="MainUI/MarginContainer/GameMat/Enemy"]

@@ -51,7 +51,6 @@ func award_points_from_hand() -> void:
 	if current_bid == current_tricks:
 		points_this_round += Rules.points_per_bid_success
 	
-	print_debug(name, " got ", points_this_round, " points")
 	overall_points += points_this_round
 
 func reset_per_hand() -> void:
