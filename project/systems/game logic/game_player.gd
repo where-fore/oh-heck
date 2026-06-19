@@ -3,10 +3,27 @@ class_name GamePlayer
 
 @export var hand:Hand
 @export var playmat:Playmat
-var current_tricks:int = 0
-var current_bid:int
-var overall_points:int = 0
+
 var have_played_this_round:bool = false
+
+signal tricks_updated
+var current_tricks:int = 0:
+	set(value):
+		current_tricks = value
+		tricks_updated.emit()
+
+signal bid_updated
+var current_bid:int = 0:
+	set(value):
+		current_bid = value
+		bid_updated.emit()
+
+signal points_updated
+var overall_points:int = 0:
+	set(value):
+		overall_points = value
+		points_updated.emit()
+
 
 func _ready() -> void:
 	@warning_ignore("untyped_declaration") #programmer short hand for yeeting all the arguments
@@ -21,3 +38,22 @@ func play_card(card_to_play:Card) -> void:
 
 func award_trick() -> void:
 	current_tricks += 1
+
+func complete_hand() -> void:
+	hand.discard_hand()
+	award_points_from_hand()
+	reset_per_hand()
+
+func award_points_from_hand() -> void:
+	var points_this_round:int = 0
+	points_this_round += Rules.points_per_trick * current_tricks
+	
+	if current_bid == current_tricks:
+		points_this_round += Rules.points_per_bid_success
+	
+	print_debug(name, " got ", points_this_round, " points")
+	overall_points += points_this_round
+
+func reset_per_hand() -> void:
+	current_bid = 0
+	current_tricks = 0

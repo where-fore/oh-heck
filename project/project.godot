@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 Names="*res://globals/names.gd"
 UiEvents="*res://globals/ui_events.gd"
+Rules="*res://globals/rules.gd"
 
 [debug]
 

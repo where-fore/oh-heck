@@ -3,32 +3,75 @@
 [ext_resource type="Script" uid="uid://cc18bdiymll11" path="res://systems/ui of game logic/ui_game_player.gd" id="1_r5k52"]
 [ext_resource type="PackedScene" uid="uid://fpdybr41mhfl" path="res://systems/ui of game logic/ui_hand.tscn" id="2_r5k52"]
 
-[node name="GamePlayer" type="Control" node_paths=PackedStringArray("hand", "playmat")]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("1_r5k52")
-hand = NodePath("VBoxContainer/Hand")
-playmat = NodePath("VBoxContainer/Playmat")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 1
+[node name="GamePlayer" type="PanelContainer" node_paths=PackedStringArray("hand", "playmat", "score_label", "bid_label", "tricks_label")]
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -124.0
+offset_top = -18.0
 grow_horizontal = 2
 grow_vertical = 0
+mouse_filter = 2
+script = ExtResource("1_r5k52")
+hand = NodePath("MarginContainer/Panel/VBoxContainer/Hand")
+playmat = NodePath("MarginContainer/Panel/VBoxContainer/Playmat")
+score_label = NodePath("MarginContainer/Counters/Score")
+bid_label = NodePath("MarginContainer/Counters/Bid")
+tricks_label = NodePath("MarginContainer/Counters/Tricks")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Counters" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="Bid" type="Label" parent="MarginContainer/Counters"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 12
+text = "Score: "
+
+[node name="Tricks" type="Label" parent="MarginContainer/Counters"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 12
+text = "Score: "
+
+[node name="Score" type="Label" parent="MarginContainer/Counters"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 12
+text = "Score: "
+
+[node name="Panel" type="Panel" parent="MarginContainer"]
+custom_minimum_size = Vector2(0, 260)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = -124.0
+offset_bottom = 124.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_constants/separation = 8
 
-[node name="Playmat" parent="VBoxContainer" instance=ExtResource("2_r5k52")]
+[node name="Playmat" parent="MarginContainer/Panel/VBoxContainer" instance=ExtResource("2_r5k52")]
 layout_mode = 2
 playmat = true
 
-[node name="Hand" parent="VBoxContainer" instance=ExtResource("2_r5k52")]
+[node name="Hand" parent="MarginContainer/Panel/VBoxContainer" instance=ExtResource("2_r5k52")]
 layout_mode = 2

@@ -4,18 +4,18 @@ extends Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	UiEvents.begin_bidding.connect(show)
-	UiEvents.end_bidding.connect(hide)
+	UiEvents.begin_bidding.connect(change_to)
+	UiEvents.end_bidding.connect(change_from)
 	
 	visible = false
 
 func change_to() -> void:
-	textbox.text = ""
+	textbox.text = str(0)
 	visible = true
 
 func change_from() -> void:
 	visible = false
-	textbox.text = ""
+	textbox.text = str(0)
 
 func _on_submit_button_pressed() -> void:
 	var user_text:String = textbox.text
@@ -28,7 +28,7 @@ func _on_submit_button_pressed() -> void:
 func _on_up_pressed() -> void:
 	if validate_bid(textbox.text):
 		textbox.text = str(int(textbox.text) + 1)
-	else: textbox.text = str(0)
+	else: textbox.text = str(1)
 
 func _on_down_pressed() -> void:
 	if validate_bid(textbox.text):

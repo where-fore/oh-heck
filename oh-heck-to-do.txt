@@ -3,8 +3,6 @@ right now
 
 
 determine prime suit
-end of round: compare playmats, give a gameplayer The Trick
-end of hand: compare Tricks against Bids, award points
 
 
 start hand: give players cards equal to current hand size
@@ -140,6 +138,7 @@ unique effect cards:
 	cards that do something to the person who wins them as a trick.. maybe lingering effects like -2 to value or +2 to value?
 	cards that change bids, yours or opponents. swap bids?
 	cards which increase points won from bidding, or losing the bid, or tricks taken
+	cards that do something when discarded from hand (not played?)
 
 
 angel: #DBCBD8

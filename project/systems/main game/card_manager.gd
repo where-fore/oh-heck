@@ -21,7 +21,6 @@ func _ready() -> void:
 
 func set_player_bid_to(bid:int) -> void:
 	player.current_bid = bid
-	print_debug(player.current_bid)
 
 func start_hand() -> void:
 	deck.shuffle_deck(discard_pile.return_discard_pile())
@@ -79,11 +78,7 @@ func award_trick_to_winner() -> void:
 
 func end_hand() -> void:
 	for gameplayer:GamePlayer in all_gameplayers:
-		
-		if gameplayer.current_tricks == gameplayer.current_bid:
-			print_debug(gameplayer.name, " got their bid right!")
-		
-		gameplayer.hand.discard_hand()
+		gameplayer.complete_hand()
 	
 	current_hand_size += 1
 		#make this do the 2 -> 7 -> 2 curve
