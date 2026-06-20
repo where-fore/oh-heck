@@ -7,6 +7,7 @@ extends Control
 @export var bid_label:Label
 @export var tricks_label:Label
 @export var leader_label:Label
+@export var mat_and_hand_container:Container
 var gameplayer:GamePlayer
 
 func _ready() -> void:
@@ -14,6 +15,7 @@ func _ready() -> void:
 	hand.ui_card_container.clear_cards()
 	
 	if top:
+		mat_and_hand_container.move_child(hand, 0)
 		UiEvents.send_game_player_to_top_ui.connect(hand.setup)
 		UiEvents.send_game_player_to_top_ui.connect(playmat.setup)
 		UiEvents.send_game_player_to_top_ui.connect(setup)

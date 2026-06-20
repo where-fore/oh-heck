@@ -63,7 +63,7 @@ func hide_card() -> void:
 func show_card() -> void:
 	should_be_hidden = false
 	value_label.visible = true
-	upside_down_value_label.visible = true
+	#upside_down_value_label.visible = true
 	set_icon()
 	set_labels()
 	disable_darkener()

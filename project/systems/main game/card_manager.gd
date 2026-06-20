@@ -8,6 +8,7 @@ extends Node2D
 var current_turn:GamePlayer
 var next_leader_index:int = 0
 var current_hand_size:int = 2
+var max_starting_hand_size:int = 7
 var current_bid_sum:int = 0
 
 func _ready() -> void:
@@ -235,7 +236,8 @@ func end_hand() -> void:
 	current_bid_sum = 0
 	
 	if Tutorial.hand_size_should_increment:
-		current_hand_size += 1
+		if current_hand_size <= max_starting_hand_size:
+			current_hand_size += 1
 	
 	if Tutorial.hand_leaders_should_swap:
 		next_leader_index += 1
