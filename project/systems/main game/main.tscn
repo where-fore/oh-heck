@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cwaeulhb1hvn"]
+[gd_scene load_steps=16 format=3 uid="uid://cwaeulhb1hvn"]
 
 [ext_resource type="Script" uid="uid://dk2q2ee2nslgr" path="res://systems/main game/card_manager.gd" id="1_cqvht"]
 [ext_resource type="PackedScene" uid="uid://cafmoo6vrwq2m" path="res://systems/game logic/deck.tscn" id="1_e0pva"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://chv8j2g2jvpl4" path="res://systems/main game/tutorial.gd" id="4_dq3g3"]
 [ext_resource type="PackedScene" uid="uid://dh1aiemun7tri" path="res://systems/game logic/discard_pile.tscn" id="4_h0t3a"]
 [ext_resource type="PackedScene" uid="uid://dx6yfgor4ql7l" path="res://systems/game logic/game_player.tscn" id="4_i5fcm"]
+[ext_resource type="Script" uid="uid://be6rbgrfalv1k" path="res://systems/main game/dialogue_bubble_manager.gd" id="6_63hud"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dq3g3"]
 
@@ -223,8 +224,16 @@ offset_right = 950.0
 offset_bottom = 530.0
 mouse_filter = 2
 
-[node name="DialogueBubble" parent="MainUI/DialoguePopups" instance=ExtResource("3_o4iuf")]
+[node name="DialogueBubbleManager" type="Control" parent="MainUI/DialoguePopups"]
 layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("6_63hud")
+individual_bubble = ExtResource("3_o4iuf")
 
 [node name="GameLogicManager" type="Node2D" parent="."]
 

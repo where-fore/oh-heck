@@ -1,4 +1,5 @@
 extends TextureRect
+class_name DialoguePopup
 
 @export var my_label:RichTextLabel
 var typewriter_characters_per_second:float = 12
@@ -6,13 +7,7 @@ var scroll_text_tween:Tween
 var fade_out_bubble_tween:Tween
 
 func _ready() -> void:
-	visible = false
 	my_label.text = ""
-	Dialogue.new_dialogue_bark.connect(scroll_text)
-	
-	scroll_text("HAHAHA WELCOME TO HECK HAHAHAHA")
-	#await get_tree().create_timer(3).timeout
-	#scroll_text("HEHEH HAHAHAHAHA")
 
 func scroll_text(new_text:String) -> void:
 	my_label.visible_characters = 0
@@ -42,7 +37,7 @@ func tween_bubble_in() -> bool:
 	await tween.finished
 	return true
 
-func tween_bubble_out() -> bool:
+func tween_bubble_out() -> void:
 	var my_color:Color = modulate
 	fade_out_bubble_tween = create_tween()
 	fade_out_bubble_tween.set_ease(Tween.EASE_IN)
@@ -50,4 +45,4 @@ func tween_bubble_out() -> bool:
 	fade_out_bubble_tween.tween_property(self, "modulate", Color(my_color.r, my_color.g, my_color.b, 0), 1.5)
 	
 	await fade_out_bubble_tween.finished
-	return true
+	queue_free()

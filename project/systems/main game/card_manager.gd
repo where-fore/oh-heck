@@ -24,7 +24,7 @@ func _ready() -> void:
 	enemy.controlled_by_ai = true
 	enemy.hand_hidden = true
 	
-	start_hand()
+	Tutorial.game_start.connect(start_hand)
 
 func sum_bid(new_bid:int) -> void:
 	current_bid_sum += new_bid
@@ -61,12 +61,12 @@ func start_hand() -> void:
 	start_next_turn()
 
 func draw_hand_for_tutorial() -> void:
-	match Tutorial.tutorial_hand_stage:
+	match Tutorial.hand_stage:
 		1: #compare numbers: can win one but definitely lose at least one
 			player.hand.add_card(deck.draw_specific_card(7, Names.suit_devil))
 			player.hand.add_card(deck.draw_specific_card(2, Names.suit_devil))
-			enemy.hand.add_card(deck.draw_specific_card(9, Names.suit_devil))
-			enemy.hand.add_card(deck.draw_specific_card(6, Names.suit_devil))
+			enemy.hand.add_card(deck.draw_specific_card(8, Names.suit_devil))
+			enemy.hand.add_card(deck.draw_specific_card(4, Names.suit_devil))
 		
 		2: #suit following: enemy starts with sun, you have to follow and lose
 			player.hand.add_card(deck.draw_specific_card(9, Names.suit_moon))
@@ -92,7 +92,7 @@ func draw_hand_for_tutorial() -> void:
 			enemy.hand.add_card(deck.draw_specific_card(1, Names.suit_moon))
 
 func end_hand_for_tutorial() -> void:
-	match Tutorial.tutorial_hand_stage:
+	match Tutorial.hand_stage:
 		1:
 			pass
 		
@@ -105,11 +105,12 @@ func end_hand_for_tutorial() -> void:
 		4:
 			Tutorial.hand_size_should_increment = true
 			Tutorial.hand_leaders_should_swap = true
+			next_leader_index = all_gameplayers.find(player)
 			Tutorial.overwriting_draw_order = false
 			Tutorial.toggle_bidding_interface()
 			Tutorial.toggle_score_hud_display()
 	
-	Tutorial.tutorial_hand_stage += 1
+	Tutorial.hand_stage += 1
 
 func collect_bids() -> bool:
 	
@@ -222,6 +223,13 @@ func award_trick_to_winner(winner:GamePlayer) -> void:
 func end_hand() -> void:
 	for gameplayer:GamePlayer in all_gameplayers:
 		gameplayer.complete_hand()
+	
+	if Tutorial.hand_stage == 1:
+		await get_tree().create_timer(1).timeout
+	if Tutorial.hand_stage == 2:
+		await get_tree().create_timer(7).timeout
+	elif Tutorial.hand_stage == 3:
+		await get_tree().create_timer(5).timeout
 	UiEvents.hand_ended.emit()
 	
 	current_bid_sum = 0
@@ -234,7 +242,12 @@ func end_hand() -> void:
 		if next_leader_index > all_gameplayers.size() - 1: next_leader_index = 0
 		UiEvents.new_hand_leader.emit(all_gameplayers[next_leader_index])
 	
+	if Tutorial.hand_stage < Tutorial.max_hand_stage:
+		await get_tree().create_timer(3).timeout
+	elif Tutorial.hand_stage == Tutorial.max_hand_stage:
+		await Tutorial.tutorial_finished
 	end_hand_for_tutorial()
+	
 	start_hand()
 
 func _unhandled_input(event: InputEvent) -> void:

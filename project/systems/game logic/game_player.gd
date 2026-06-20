@@ -38,10 +38,18 @@ func start_turn() -> void:
 	UiEvents.turn_started.emit(self)
 	
 	if controlled_by_ai:
-		await get_tree().create_timer(randfn(1,0.25)).timeout
+		
+		var time_to_think:float
+		if Tutorial.hand_stage == 1:
+			time_to_think = 2
+		else: time_to_think = randfn(1,0.25)
+		
+		await get_tree().create_timer(time_to_think).timeout
 		UiEvents.card_selected_to_play.emit(self, ai_choose_card())
 
 func play_card(card_to_play:Card) -> void:
+	Dialogue.played_card.emit(self, card_to_play)
+	
 	playmat.add_card(card_to_play)
 	card_to_play.available_to_play = true
 	
@@ -86,7 +94,7 @@ func ai_choose_card() -> Card:
 		#to_print.append(card.print_string)
 	#print("available: ", ", ".join(to_print))
 	
-	if Tutorial.tutorial_hand_stage == 2:
+	if Tutorial.hand_stage == 2:
 		var card_to_return:Card
 		for card:Card in available_cards:
 			if card.suit == Names.suit_sun:
@@ -94,7 +102,7 @@ func ai_choose_card() -> Card:
 		if card_to_return: return card_to_return
 		else: return available_cards.pick_random()
 	
-	if Tutorial.tutorial_hand_stage == 3:
+	if Tutorial.hand_stage == 3:
 		var card_to_return:Card
 		for card:Card in available_cards:
 			if card.value == 3:

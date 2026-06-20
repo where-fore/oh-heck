@@ -1,10 +1,12 @@
 extends Node
 
 @warning_ignore_start("unused_signal")
-signal new_dialogue_bark(text:String)
+signal game_start
+signal tutorial_finished
 @warning_ignore_restore("unused_signal")
 
-var tutorial_hand_stage:int = 1
+var hand_stage:int = 1
+var max_hand_stage:int = 4 #descriptive, not prescriptive. update me
 
 #
 #game rule/state toggles, and their signals
