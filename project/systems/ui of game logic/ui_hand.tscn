@@ -4,8 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://bwrfntpak2rds" path="res://systems/ui of game logic/ui_card.tscn" id="1_lromn"]
 [ext_resource type="PackedScene" uid="uid://7ukqvkuj3l5e" path="res://systems/ui of game logic/ui_card_container.tscn" id="3_235rm"]
 
-[node name="GamePlayerHand" type="Control" node_paths=PackedStringArray("ui_card_container")]
-custom_minimum_size = Vector2(0, 120)
+[node name="GamePlayerHand" type="Control" node_paths=PackedStringArray("ui_card_container", "not_turn_indicator")]
+custom_minimum_size = Vector2(960, 120)
 layout_mode = 3
 anchors_preset = 12
 anchor_top = 1.0
@@ -15,7 +15,17 @@ grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("1_i0qko")
 ui_card_container = NodePath("HBoxContainer")
+not_turn_indicator = NodePath("TurnIndicator")
 UICard_base_scene = ExtResource("1_lromn")
 
 [node name="HBoxContainer" parent="." instance=ExtResource("3_235rm")]
 layout_mode = 1
+
+[node name="TurnIndicator" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.47058824)

@@ -12,4 +12,5 @@ func set_card_to(new_card:Card) -> void:
 	Rules.current_prime = ui_card.card.suit
 
 func clear_card() -> void:
+	ui_card.unsetup()
 	UiEvents.card_sent_to_discard.emit(ui_card.card)

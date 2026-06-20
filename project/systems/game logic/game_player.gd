@@ -35,6 +35,8 @@ func _ready() -> void:
 	playmat.card_removed.connect(func(_unused_data) -> void: playmat.recalculate_total())
 
 func start_turn() -> void:
+	UiEvents.turn_started.emit(self)
+	
 	if controlled_by_ai:
 		await get_tree().create_timer(randfn(1,0.25)).timeout
 		UiEvents.card_selected_to_play.emit(self, ai_choose_card())
@@ -45,6 +47,8 @@ func play_card(card_to_play:Card) -> void:
 	
 	hand.remove_card(card_to_play)
 	have_played_this_round = true
+	
+	UiEvents.turn_ended.emit(self)
 
 func award_trick() -> void:
 	current_tricks += 1

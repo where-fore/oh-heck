@@ -13,4 +13,6 @@ signal player_bid_rejected
 signal bid_added(bid:int)
 signal set_prime_card(card:Card)
 signal hand_ended
+signal turn_started(gameplayer:GamePlayer)
+signal turn_ended(gameplayer:GamePlayer)
 @warning_ignore_restore("unused_signal")

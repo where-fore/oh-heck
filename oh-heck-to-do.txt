@@ -1,28 +1,93 @@
 right now
 --------------
 
-tween scale from 2 to 1 quite quickly
-tween top to bottom quick quickly
-rest a bit
-slide back up
+dialogue popups
+	thinking a permanent chat box
+		lil animation when new text, ideally sfx too
+		could go away at some point after the tutorial, TIME TO LOCK IN AHAHA
+	
+turn indicator, leader indicator
+	dark overlay for turn indicator, over whole hand stripe
+	leader indicator: just some text for now
 
-basic ui flow
-	after all cards are played, pause
-	show who won
-	reset
+tutorial stage system
+	thinking adding if checks and await checks into regular game logic, that checks tutorial stuff
+		if tutorial stage < 3: return
+		if not tutorial stage > 3: return
+		await tutorial_bidding_complete
 
-card playing animation:
-	player: instant
-	enemy:
-		giant demon hand hits table, rises away revealing card
-		pops up from middle of table
-		
+draw specific cards
+	thinking draw_specific(suit, value)
+		for card in deck:
+			if suit == suit
+				if value == value:
+					draw_card()
+-
+
+	
+
+
+
+
+
+
+signed devil contract, have the "if you have more than 66 points you win" signed at the bottom. have it be the rules
+	let player sign with mouse, press button
+	COME ON, SIGN; YOU HAVE NOWHERE TO GO AHAH
+	HAHA I OWN YOUR LIFE
+	CARD GAME NOW
+	
+
+start with two cards (you get 5, 3. devil gets 6, 4)
+devil plays first (plays 6)
+	PLAY A CARD HAHA
+plays a card
+	TOO SMALL HAHA
+	BEAT THIS (plays 4)
+	either HAHA SO PUNY HAHA or FIESTY ARENT YOU HAHA LUCKY HAHAH CARD GAMES HAVE NO SKILL HAHA
+MORE CARDS
+get 2 cards (6 moon, 1 sun)
+plays 4 sun
+	HAVE TO FOLLOW SUIT HAHA
+plays 4 moon, you take with 6
+	NO NO UNFAIR TOO STRONG
+	HM.. PRIME SUITS ALWAYS WIN (prime suit display appears)
+	
+given 3 devil, 5 sun
+he plays 3 moon
+if take with devil
+	AHH NICE PRIME, VERY HANDSOME
+	have to play 5 sun, he plays 6 moon AHHH FOLLOWED SUIT WINS, STUPID SUN STUPID AHA
+if try with sun
+	FOLLOW SUIT WINS, SUN NOT MOON HAHA
+	he plays 6 moon
+	AHH NICE PRIME, VERY HANDSOME
+
+OKAY OKAY ENOUGH NEW CARD RULES
+play a round where he gets trounced
+start with 6 devil, 4 moon, 4 sun
+he has 3 moon, 3 sun, 1 moon
+
+AH VERY VERY GOOD...
+POINT OF GAME IS NOT TO WIN
+TELL ME EXACTLY HOW MUCH YOU GOING TO WIN
+bidding screen GO ON, TELL THE FUTURE PUNY ONE HAHA
+GET 10 POINTS FOR THAT
+
+AH VERY SMART GOOD BID AH ; TOO MUCH WINNING, SO GREEEEDY AHAHA ; SO PUNY, NO WINNING AHAH
+
+regular game play
+
+haven't explained who starts turns, it's alternating first start leader; and mid hand whoever takes trick starts the next
+have devil say MY TURN AHA when taking trick. MY TURN TO LEAD AHA during gameplay
+
+
 
 ---------------------------------------------------------
 required
 ---------------------------------------------------------
 
-codify ties - currently i'm just iterating through all_gameplayers and first to the post wins
+maybe cut angel cards, only 3 suits - currently leading is maybe a bit too strong? which feels bad because it's random and swingy, would rather there be 1-8 of 3 suits than 1-6 of 4
 
 bugfix - currently you can click cards almost whenever, not explict allowing
 
@@ -34,15 +99,12 @@ figure out end condition
 	number of rounds? 2 - 7 - 2, then that's it? compare score?
 	compare after every 7 peak? how does enemy scale, if you're getting roguelike card powers? just cheating numbers?
 
-hide enemy cards somehow
-
 ----------------------------------------------------------------------------
 okay it'd be really good
 ----------------------------------------------------------------------------
 
-bid getting rejected sets it to 0, which then if you double click it accepts as 0
+codify ties - currently i'm just iterating through all_gameplayers and first to the post wins
 
-little dialogue pops ups, at least for tutorialization, would be great
 
 show an indicator for currently lead suit
 
@@ -68,6 +130,7 @@ advanced gameplay:
 	first draft:
 		if under bid, play highest
 		if over bid, play lowest
+	use score to buy stuff!!!
 
 intro cutscene
 dialogue popups
@@ -160,6 +223,47 @@ background: #292E1E | #52050A
 alright that's cool but idk if i have time
 ----------------------------------------------------------------------------
 
+card playing animation:
+	player: instant
+	enemy:
+		giant demon hand hits table, rises away revealing card
+		pops up from middle of table
+-
+
 multiplayer!!!
 	hot seat: have hands invisible unless you hover over them, and have each real life player cover their real life eyes while their opponent looks at their hand
 		have a button to reveal hand, makes a sound, and each seat makes a unique sound (so you can hear if the other person revealed your hand)
+-
+
+
+
+----------------------------------------------------------------------------
+jam dev post mortem:
+12 hours clocked in, 59m "on break"
+1:40 basic card deck functionality
+1:20 basic hand ui
+1:00 full hand/playmat/discard functionality
+1:00 card sprites in
+0:45 fonts in and themes tweaked
+2:00 advanced game logic - bids, winning tricks
+1:15 advanced game logic - prime + lead suits
+0:20 game flow - enemy randomly plays, turns swap
+1:00 advanced game rules - cannot bid max hand size; have to play on suit
+0:30 ui - enemy cards hidden
+1:15 final tweaks - added turn/trick timers, basic tutorial. tried some animations, cut them
+some a bit inaccurate, the hour on break is sprinkled in there
+
+basically i completely underestimated the card game part - didn't break down all of what it needed. since i understood the rules myself, they were all a given - things like following suit are completely non-obvious and weren't planned for
+especially given the fast progress at the start, i set my expectations much higher than they ended up should have been. my todo list was always super short, and i just noticed one thing wrong, fixed that, for 5 hours
+didn't get to the cool and difficult part, the roguelike twists
+didn't get to the cool and new parts, the charactizeration, the sprites, the dialogue
+
+my instincts for introducing each mechanic slowly, with the devil dialogue boxes, were great - all the feedback i got was confirming that was what i needed to do, and i know that's all i need to do
+
+workflow wise, did an alright job. the lack of planning really bit me, felt pretty burnt how quite quickly - and in non-overwhelming part. when i had flappy bird for example, long to do list, do some until diminishing returns, take a break, get back to it at near 100%. this was just a long set of "alright we're done, just one more thing" forever. didn't project manage super well, since i fell short of even basic expectations before the end - the goal was 1. get basics, 2. add some characterization, 3. add some roguelike mechanics. figured i'd do a first pass of 2 and 3, not a ton. didn't even finish 1 - so the tutorialization was fucked. salvaged it fairly well at the end, with the turn delays and the block of text
+
+pretty funny i'm on game number 4 which has barely ascended past a copy. i suppose i do really like execution over innovation, what with the game reviews and all. i do keep saying "something unique this time", which maybe is just doing my work a disservice.
+
+
+feedback:
+jeffry loved euchre moments where you have full suite of big trump and just lay it down - piecing together your opponents have no chance

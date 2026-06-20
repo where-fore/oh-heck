@@ -6,7 +6,15 @@ var game_player:GamePlayer
 
 @export_category("Initialization")
 @export var ui_card_container:UICardContainer
+@export var not_turn_indicator:ColorRect
 @export var UICard_base_scene:PackedScene
+@onready var base_turn_alpha:float = not_turn_indicator.color.a
+
+func _ready() -> void:
+	UiEvents.turn_started.connect(check_and_show_turn_indicator)
+	UiEvents.turn_ended.connect(check_and_hide_turn_indicator)
+	
+	not_turn_indicator.visible = false
 
 func setup(game_player_to_assign:GamePlayer) -> void:
 	game_player = game_player_to_assign
@@ -19,6 +27,20 @@ func setup(game_player_to_assign:GamePlayer) -> void:
 		game_player.hand.card_added.connect(create_ui_card)
 		game_player.hand.card_removed.connect(delete_ui_card)
 
+func check_and_show_turn_indicator(player_whose_turn_started:GamePlayer) -> void:
+	if playmat:
+		return
+	if player_whose_turn_started == game_player:
+		await fade_animation(0, not_turn_indicator)
+		not_turn_indicator.visible = false
+
+func check_and_hide_turn_indicator(player_whose_turn_ended:GamePlayer) -> void:
+	if playmat:
+		return
+	if player_whose_turn_ended == game_player:
+		not_turn_indicator.visible = true
+		fade_animation(base_turn_alpha, not_turn_indicator)
+
 func play_card_from_ui_card(ui_card:UICard) -> void:
 	UiEvents.card_selected_to_play.emit(game_player, ui_card.card)
 
@@ -26,6 +48,14 @@ func recreate_hand() -> void:
 	ui_card_container.clear_cards()
 	for card:Card in game_player.hand.cards_in_hand:
 		create_ui_card(card)
+
+func fade_animation(target_alpha:float, target_object:ColorRect) -> bool:
+	var tween:Tween = create_tween()
+	var target_color:Color = target_object.color
+	target_color.a = target_alpha
+	tween.tween_property(target_object, "color", target_color, 0.25)
+	await tween.finished
+	return true
 
 func create_ui_card(card_to_assign:Card) -> void:
 	var new_ui_card:UICard = UICard_base_scene.instantiate()
