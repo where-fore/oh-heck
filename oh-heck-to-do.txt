@@ -11,27 +11,7 @@ tutorial stage system
 		if tutorial stage < 3: return
 		if not tutorial stage > 3: return
 		await tutorial_bidding_complete
-
-draw specific cards
-	thinking draw_specific(suit, value)
-		for card in deck:
-			if suit == suit
-				if value == value:
-					draw_card()
 -
-
-	
-
-
-
-
-
-
-signed devil contract, have the "if you have more than 66 points you win" signed at the bottom. have it be the rules
-	let player sign with mouse, press button
-	COME ON, SIGN; YOU HAVE NOWHERE TO GO AHAH
-	HAHA I OWN YOUR LIFE
-	CARD GAME NOW
 	
 
 start with two cards (you get 5, 3. devil gets 6, 4)
@@ -83,14 +63,6 @@ have devil say MY TURN AHA when taking trick. MY TURN TO LEAD AHA during gamepla
 required
 ---------------------------------------------------------
 
-maybe cut angel cards, only 3 suits - currently leading is maybe a bit too strong? which feels bad because it's random and swingy, would rather there be 1-8 of 3 suits than 1-6 of 4
-
-bugfix - currently you can click cards almost whenever, not explict allowing
-
-questions to answer:
-	it is required we share a deck, at least of basic cards, for the rules of the game. so how do i add roguelike elements? i can't just add them to the deck can i?
-		yeah i can, just draw player hand first, and enemy hand when trying to draw a 
-
 figure out end condition
 	number of rounds? 2 - 7 - 2, then that's it? compare score?
 	compare after every 7 peak? how does enemy scale, if you're getting roguelike card powers? just cheating numbers?
@@ -99,9 +71,19 @@ figure out end condition
 okay it'd be really good
 ----------------------------------------------------------------------------
 
+intro:
+	signed devil contract, have the "if you have more than 66 points you win" signed at the bottom. have it be the rules, other nonsense
+		let player sign with mouse, press button
+		COME ON, SIGN; YOU HAVE NOWHERE TO GO AHAH
+		HAHA I OWN YOUR LIFE
+		CARD GAME NOW
+-
+	
 cooler font
+	make the 6 and 9 have the little line underneath
 
 codify ties - currently i'm just iterating through all_gameplayers and first to the post wins
+	regular deck there's no ties ofc, but roguelike will change
 
 bugfix - fail case if deck is empty and trying to draw (should never really happen, drawing 15 of 52 without effects)
 
@@ -222,6 +204,7 @@ multiplayer!!!
 		have a button to reveal hand, makes a sound, and each seat makes a unique sound (so you can hear if the other person revealed your hand)
 -
 
+clean up rules.validate bid - rules should probably hold the current bid sum and max hand size
 
 
 ----------------------------------------------------------------------------

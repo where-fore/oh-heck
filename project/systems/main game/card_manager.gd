@@ -9,8 +9,6 @@ var current_turn:GamePlayer
 var next_leader_index:int = 0
 var current_hand_size:int = 3
 var current_bid_sum:int = 0
-var current_suit:StringName = unset_suit
-const unset_suit:StringName = &"SUIT NOT SET"
 
 func _ready() -> void:
 	deck.setup()
@@ -73,8 +71,8 @@ func start_hand() -> void:
 func check_and_play_card(gameplayer:GamePlayer, card:Card) -> void:
 	if gameplayer == current_turn:
 		gameplayer.play_card(card)
-		if current_suit == unset_suit:
-			current_suit = card.suit
+		if Rules.current_lead_suit == Rules.unset_suit:
+			Rules.current_lead_suit = card.suit
 		
 		if gameplayer == player: current_turn = enemy
 		elif gameplayer == enemy: current_turn = player
@@ -103,7 +101,7 @@ func end_round() -> void:
 			should_end_hand = true
 	
 	
-	current_suit = unset_suit
+	Rules.current_lead_suit = Rules.unset_suit
 	if should_end_hand: end_hand()
 	else: start_next_turn()
 
@@ -113,9 +111,9 @@ func start_next_turn() -> void:
 	
 	var cards_of_current_suit:int = 0
 	for card:Card in current_turn.hand.cards_in_hand:
-		if card.suit != current_suit:
+		if card.suit != Rules.current_lead_suit:
 			card.available_to_play = false
-		if card.suit == current_suit:
+		if card.suit == Rules.current_lead_suit:
 			cards_of_current_suit += 1
 	
 	if cards_of_current_suit == 0:
@@ -126,7 +124,7 @@ func start_next_turn() -> void:
 
 func find_and_award_winner() -> void:
 	if not check_highest_of_suit(Rules.current_prime):
-		if not check_highest_of_suit(current_suit):
+		if not check_highest_of_suit(Rules.current_lead_suit):
 			var highest_value:int = 0
 			var winning_gameplayer:GamePlayer = enemy
 			for gameplayer:GamePlayer in all_gameplayers:

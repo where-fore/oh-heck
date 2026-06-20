@@ -39,7 +39,11 @@ func set_score_label() -> void:
 	score_label.text = str("Score: ", gameplayer.overall_points)
 
 func set_bid_label() -> void:
-	bid_label.text = str("Bid: ", gameplayer.current_bid)
+	var new_string:String = "Bid: "
+	if gameplayer.current_bid == -1: new_string += "waiting"
+	else: new_string += str(gameplayer.current_bid)
+	
+	bid_label.text = new_string
 
 func set_tricks_label() -> void:
 	tricks_label.text = str("Tricks: ", gameplayer.current_tricks)

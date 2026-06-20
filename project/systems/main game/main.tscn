@@ -65,6 +65,8 @@ grow_vertical = 1
 top = true
 
 [node name="VBoxContainer" parent="MainUI/GameContainer/GameMat/Enemy/GamePanel" index="0"]
+offset_left = -480.0
+offset_right = 480.0
 rotation = 3.1415927
 pivot_offset = Vector2(480, 124)
 

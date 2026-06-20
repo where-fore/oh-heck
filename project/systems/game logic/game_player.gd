@@ -16,7 +16,7 @@ var current_tricks:int = 0:
 		tricks_updated.emit()
 
 signal bid_updated
-var current_bid:int = 0:
+var current_bid:int = -1:
 	set(value):
 		current_bid = value
 		bid_updated.emit()
@@ -68,20 +68,99 @@ func award_points_from_hand() -> void:
 	overall_points += points_this_round
 
 func reset_per_hand() -> void:
-	current_bid = 0
+	current_bid = -1
 	current_tricks = 0
 
 func ai_choose_card() -> Card:
 	var available_cards:Array[Card]
 	for card:Card in hand.cards_in_hand:
 		if card.available_to_play: available_cards.append(card)
-	return available_cards.pick_random()
+	
+	#print_debug("decided what card to play...")
+	#var to_print:Array[String]
+	#for card in hand.cards_in_hand:
+		#to_print.append(card.print_string)
+	#print("hand: ", ", ".join(to_print))
+	#to_print = []
+	#for card in available_cards:
+		#to_print.append(card.print_string)
+	#print("available: ", ", ".join(to_print))
+	
+	
+	var best_card:Card
+	var best_value:int = 0
+	if current_tricks < current_bid:
+		#try to take
+		#play highest trump, or highest on suit (or highest if no suit declared yet ie. going first), or lowest off suit
+		for card:Card in available_cards:
+			if card.suit == Rules.current_prime:
+				if card.value > best_value:
+					best_value = card.value
+					best_card = card
+		if not best_card:
+			best_value = 0
+			for card:Card in available_cards:
+				if card.suit == Rules.current_lead_suit or Rules.current_lead_suit == Rules.unset_suit:
+					if card.value > best_value:
+						best_value = card.value
+						best_card = card
+		if not best_card:
+			best_value = 0
+			for card:Card in available_cards:
+				if card.value < best_value or best_value == 0:
+					best_value = card.value
+					best_card = card
+	elif current_tricks >= current_bid :
+		#try not to take
+		#play highest off suit, lowest on suit, highest trump
+		for card:Card in available_cards:
+			if card.suit != Rules.current_lead_suit and card.suit != Rules.current_prime:
+				if card.value > best_value:
+					best_value = card.value
+					best_card = card
+			
+		if not best_card:
+			best_value = 0
+			for card:Card in available_cards:
+				if card.suit == Rules.current_lead_suit:
+					if card.value < best_value or best_value == 0:
+						best_value = card.value
+						best_card = card
+			
+		if not best_card:
+			best_value = 0
+			for card:Card in available_cards:
+				if card.suit == Rules.current_prime:
+					if card.value > best_value:
+						best_value = card.value
+						best_card = card
+	
+	if not best_card: best_card = available_cards.pick_random()
+	
+	return best_card
 
 func ai_choose_bid(current_sum:int, maximum_hand_size:int) -> void:
-	var found_a_bid:bool = false
-	var found_bid:int
-	while found_a_bid == false:
-		found_bid = randi_range(0, hand.cards_in_hand.size())
-		found_a_bid = Rules.validate_bid(found_bid, current_sum, maximum_hand_size)
-	current_bid = found_bid
-	UiEvents.bid_added.emit(current_bid)
+	#print_debug("decided what bid to make...")
+	#var to_print:Array[String]
+	#for card in hand.cards_in_hand:
+		#to_print.append(card.print_string)
+	#print("hand: ", ", ".join(to_print))
+	
+	var estimated_tricks:int = 0
+	for card in hand.cards_in_hand:
+		if card.suit == Rules.current_prime:
+			@warning_ignore("integer_division")
+			if card.value >= Rules.max_card_value_to_create * 1 / 3:
+				estimated_tricks += 1
+				print(card.print_string, " very good")
+		else:
+			@warning_ignore("integer_division")
+			if card.value >= Rules.max_card_value_to_create * 2 / 3:
+				estimated_tricks += 1
+				print(card.print_string, " very good")
+	
+	while not Rules.validate_bid(estimated_tricks, current_sum, maximum_hand_size):
+		estimated_tricks += 1
+	
+	current_bid = estimated_tricks
+	UiEvents.bid_added.emit(estimated_tricks)
