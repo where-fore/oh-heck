@@ -12,7 +12,7 @@ tutorial stage system
 		if not tutorial stage > 3: return
 		await tutorial_bidding_complete
 -
-	
+
 
 start with two cards (you get 5, 3. devil gets 6, 4)
 devil plays first (plays 6)
@@ -99,9 +99,7 @@ advanced gameplay:
 	after so many rounds, pick a card to add to the deck (enemy can't draw it, not sure how to program this. shuffle the deck and draw again? draw top card, but skip if angel and draw second top?)
 	have those cards with custom effects (takes the trick no matter what, loses the trick no matter what, takes the opponents card into your hand)
 	ai better at game somehow, there's probably improvements
-	first draft:
-		if under bid, play highest
-		if over bid, play lowest
+		currently it doesn't count prime in hand
 	use score to buy stuff!!!
 
 settings menu

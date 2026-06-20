@@ -81,62 +81,6 @@ offset_left = -40.0
 offset_top = -20.0
 offset_bottom = 20.0
 
-[node name="Tutorial" type="Control" parent="MainUI"]
-visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("4_dq3g3")
-
-[node name="ColorRect" type="ColorRect" parent="MainUI/Tutorial"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.8627451)
-
-[node name="Label" type="Label" parent="MainUI/Tutorial/ColorRect"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_vertical = 1
-theme_override_constants/line_spacing = 30
-theme_override_constants/paragraph_spacing = -8
-text = "OH HELL
-
-3 SUITS OF 1 -> 9
-PRIME SUIT ALWAYS WINS
-YOU HAVE TO FOLLOW SUIT; FOLLOWING SUIT BEATS NOT
-
-YOU BID HOW MANY TRICKS YOU WILL WIN
-YOU GET POINTS FOR GETTING YOUR BID CORRECT
-NO BIDS THAT MAKE ALL BIDS EQUAL TO HAND SIZE
-
-OH HELL"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Button" type="Button" parent="MainUI/Tutorial"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/normal = SubResource("StyleBoxEmpty_dq3g3")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_63hud")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_o4iuf")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_vki74")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_3w2pm")
-
 [node name="Bidding Interface" type="Control" parent="MainUI" node_paths=PackedStringArray("textbox")]
 layout_mode = 3
 anchors_preset = 15
@@ -209,6 +153,62 @@ offset_top = -22.0
 grow_horizontal = 0
 text = "-1"
 
+[node name="Tutorial" type="Control" parent="MainUI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_dq3g3")
+
+[node name="ColorRect" type="ColorRect" parent="MainUI/Tutorial"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.8627451)
+
+[node name="Label" type="Label" parent="MainUI/Tutorial/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 1
+theme_override_constants/line_spacing = 22
+text = "OH HELL
+
+THREE SUITS OF 1 -> 9.
+PRIME SUIT ALWAYS WINS.
+YOU HAVE TO FOLLOW SUIT; FOLLOWING SUIT BEATS NOT.
+
+YOU GET 1 POINT PER TRICK.
+YOU BID HOW MANY TRICKS YOU WANT TO WIN.
+YOU GET 10 POINTS FOR GETTING YOUR BID CORRECT.
+WHEN BIDDING SECOND, 
+NO BIDS THAT MAKE ALL BIDS EQUAL TO HAND SIZE.
+
+OH HELL"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="MainUI/Tutorial"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_dq3g3")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_63hud")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_o4iuf")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_vki74")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_3w2pm")
+
 [node name="GameLogicManager" type="Node2D" parent="."]
 
 [node name="CardManager" type="Node2D" parent="GameLogicManager" node_paths=PackedStringArray("deck", "player", "enemy", "discard_pile")]
@@ -226,9 +226,9 @@ discard_pile = NodePath("DiscardPile")
 
 [node name="Enemy" parent="GameLogicManager/CardManager" instance=ExtResource("4_i5fcm")]
 
-[connection signal="pressed" from="MainUI/Tutorial/Button" to="MainUI/Tutorial" method="_on_button_pressed"]
 [connection signal="pressed" from="MainUI/Bidding Interface/HBoxContainer/LineEdit/SubmitButton" to="MainUI/Bidding Interface" method="_on_submit_button_pressed"]
 [connection signal="pressed" from="MainUI/Bidding Interface/HBoxContainer/LineEdit/Up" to="MainUI/Bidding Interface" method="_on_up_pressed"]
 [connection signal="pressed" from="MainUI/Bidding Interface/HBoxContainer/LineEdit/Down" to="MainUI/Bidding Interface" method="_on_down_pressed"]
+[connection signal="pressed" from="MainUI/Tutorial/Button" to="MainUI/Tutorial" method="_on_button_pressed"]
 
 [editable path="MainUI/GameContainer/GameMat/Enemy"]
