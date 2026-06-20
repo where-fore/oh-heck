@@ -218,6 +218,7 @@ func check_highest_of_suit(suit_to_check:StringName) -> bool:
 	return false
 
 func award_trick_to_winner(winner:GamePlayer) -> void:
+	UiEvents.trick_won.emit(winner)
 	winner.award_trick()
 	current_turn = winner
 

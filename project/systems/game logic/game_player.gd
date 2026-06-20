@@ -72,6 +72,9 @@ func award_points_from_hand() -> void:
 	
 	if current_bid == current_tricks:
 		points_this_round += Rules.points_per_bid_success
+		if Tutorial.hand_stage > 4:
+			if not controlled_by_ai:
+				Dialogue.new_dialogue_bark.emit("10 POINTS FOR EXCELLENT BIDDING HAHAHA")
 	
 	overall_points += points_this_round
 

@@ -16,4 +16,5 @@ signal hand_ended
 signal turn_started(gameplayer:GamePlayer)
 signal turn_ended(gameplayer:GamePlayer)
 signal new_hand_leader(gameplayer:GamePlayer)
+signal trick_won(gameplayer:GamePlayer)
 @warning_ignore_restore("unused_signal")

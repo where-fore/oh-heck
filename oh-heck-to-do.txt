@@ -1,59 +1,13 @@
 right now
 --------------
 
-tutorial stage system
-	thinking adding if checks and await checks into regular game logic, that checks tutorial stuff
-		if tutorial stage < 3: return
-		if not tutorial stage > 3: return
-		await tutorial_bidding_complete
--
-
-need to incrememnt tutorial_hand_stage. not sure where, logically it's in hand_end but can just do it here in draw_hand_for_tutorial?
-	currently it's bricking game_player.ai_card_pick, it's checking if stage == 3 for special logic
-
-start with two cards (you get 5, 3. devil gets 6, 4)
-devil plays first (plays 6)
-	PLAY A CARD HAHA
-plays a card
-	TOO SMALL HAHA
-	BEAT THIS (plays 4)
-	either HAHA SO PUNY HAHA or FIESTY ARENT YOU HAHA LUCKY HAHAH CARD GAMES HAVE NO SKILL HAHA
-MORE CARDS
-
-get 2 cards (6 moon, 1 sun)
-plays 4 sun
-	HAVE TO FOLLOW SUIT HAHA
-plays 4 moon, you take with 6
-	NO NO UNFAIR TOO STRONG
-	HM.. PRIME SUITS ALWAYS WIN (prime suit display appears)
-	
-given 3 devil, 5 sun
-he plays 3 moon
-if take with devil
-	AHH NICE PRIME, VERY HANDSOME
-	have to play 5 sun, he plays 6 moon AHHH FOLLOWED SUIT WINS, STUPID SUN STUPID AHA
-if try with sun
-	FOLLOW SUIT WINS, SUN NOT MOON HAHA
-	he plays 6 moon
-	AHH NICE PRIME, VERY HANDSOME
-
-OKAY OKAY ENOUGH NEW CARD RULES
-play a round where he gets trounced
-start with 6 devil, 4 moon, 4 sun
-he has 3 moon, 3 sun, 1 moon
-
-AH VERY VERY GOOD...
-POINT OF GAME IS NOT TO WIN
-TELL ME EXACTLY HOW MUCH YOU GOING TO WIN
-bidding screen GO ON, TELL THE FUTURE PUNY ONE HAHA
-GET 10 POINTS FOR THAT
-
-AH VERY SMART GOOD BID AH ; TOO MUCH WINNING, SO GREEEEDY AHAHA ; SO PUNY, NO WINNING AHAH
-
-regular game play
-
 haven't explained who starts turns, it's alternating first start leader; and mid hand whoever takes trick starts the next
 have devil say MY TURN AHA when taking trick. MY TURN TO LEAD AHA during gameplay
+
+scoring barks:
+10 POINTS FOR MAKING BID HAHAH GOOD GUESS
+AH VERY SMART GOOD BID AH ; TOO MUCH WINNING, SO GREEEEDY AHAHA ; SO PUNY, NO WINNING AHAH
+
 
 
 
@@ -61,16 +15,21 @@ have devil say MY TURN AHA when taking trick. MY TURN TO LEAD AHA during gamepla
 required
 ---------------------------------------------------------
 
-figure out end condition
-	number of rounds? 2 - 7 - 2, then that's it? compare score?
-	compare after every 7 peak? how does enemy scale, if you're getting roguelike card powers? just cheating numbers?
 
 ----------------------------------------------------------------------------
 okay it'd be really good
 ----------------------------------------------------------------------------
 
-colour code key terms - prime/suit/trick/bid etc, maybe to yellow?
+better trick taking feedback, cool fire animations or something, cards being taken, devil man eats them etc
+
+figure out end condition
+	number of rounds? 2 - 7 - 2, then that's it? compare score?
+	compare after every 7 peak? how does enemy scale, if you're getting roguelike card powers? just cheating numbers?
+
+
+colour code key terms in dialogue - prime/suit/trick/bid etc, maybe to yellow?
 	not sure how this interacts with the typewriter effect
+
 
 intro:
 	signed devil contract, have the "if you have more than 66 points you win" signed at the bottom. have it be the rules, other nonsense
@@ -247,3 +206,48 @@ pretty funny i'm on game number 4 which has barely ascended past a copy. i suppo
 
 feedback:
 jeffry loved euchre moments where you have full suite of big trump and just lay it down - piecing together your opponents have no chance
+
+
+
+
+--------------
+how to do dialogue barking correctly:
+
+not sure where to do the barking
+could do a dank if bark_stage == 4, next_bark() for each action like playing cards
+could also have a generic "enemy played card" signal, and tutorial has a dank if/and that just listens to that
+	tutorial barker listens to enemy_played_card, if tutorial_stage = 2 then bark
+
+so my problem is i want every single line to be shot, nothing missed
+
+i need this dialogue system to react to
+enemy playing card, at stage
+you playing card, comparing that card to enemy card
+
+
+so i could have an array of TutorialBarks
+each of which has a condition
+and when a card is played, it iterates through the card_played TutorialBarks, and each one does its function and if it returns a string, bark that string and delete from array
+
+so this way i have a "enemy played card" array of
+
+any
+	PLAY A CARD HAHA
+	HAVE TO FOLLOW SUIT HAHA
+played card not matching suit
+	AHHH FOLLOWED SUIT WINS, STUPID SUN STUPID AHA
+
+player played card array of
+	smaller than other card
+		TOO SMALL HAHA
+		HAHA SO PUNY HAHAH
+	bigger than other card
+		HAHA CARD GAMES HAVE NO SKILL HAHAH
+
+and this can tie into the random barks later - if tutorial array is empty, pull randomly from random bark array
+
+okay so
+
+conditionalDialogue
+
+dialogue_if_successful:string = 
