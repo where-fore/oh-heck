@@ -3,7 +3,7 @@ extends Node
 const points_per_bid_success:int = 10
 const points_per_trick:int = 1
 
-const max_card_value_to_create:int = 6
+const max_card_value_to_create:int = 9
 
 var current_prime:StringName
 

@@ -5,10 +5,6 @@ dialogue popups
 	thinking a permanent chat box
 		lil animation when new text, ideally sfx too
 		could go away at some point after the tutorial, TIME TO LOCK IN AHAHA
-	
-turn indicator, leader indicator
-	dark overlay for turn indicator, over whole hand stripe
-	leader indicator: just some text for now
 
 tutorial stage system
 	thinking adding if checks and await checks into regular game logic, that checks tutorial stuff
@@ -103,19 +99,13 @@ figure out end condition
 okay it'd be really good
 ----------------------------------------------------------------------------
 
+cooler font
+
 codify ties - currently i'm just iterating through all_gameplayers and first to the post wins
-
-
-show an indicator for currently lead suit
 
 bugfix - fail case if deck is empty and trying to draw (should never really happen, drawing 15 of 52 without effects)
 
-draw a nice back to the cards, for the deck and enemy hand
-
 probably want some asymmetry asap into gameplay - have the demon with more cards in hand, or something like that
-
-ui flow feel:
-	turn indicator, maybe at least darken cards if not turn
 
 make hand size oscillate
 	if current >= max: direction = falling, size -=1
@@ -131,9 +121,6 @@ advanced gameplay:
 		if under bid, play highest
 		if over bid, play lowest
 	use score to buy stuff!!!
-
-intro cutscene
-dialogue popups
 
 settings menu
 
