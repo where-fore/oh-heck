@@ -17,6 +17,9 @@ var should_be_hidden:bool = false
 signal ui_card_selected(ui_card:UICard)
 
 func setup(card_to_assign:Card) -> void:
+	if not card_to_assign:
+		return
+	
 	card = card_to_assign
 	card.availablility_updated.connect(check_to_darken)
 	disable_all_icons()
@@ -24,6 +27,9 @@ func setup(card_to_assign:Card) -> void:
 	set_labels()
 
 func unsetup() -> void:
+	if not card:
+		return
+	
 	card.availablility_updated.disconnect(check_to_darken)
 
 func set_icon() -> void:

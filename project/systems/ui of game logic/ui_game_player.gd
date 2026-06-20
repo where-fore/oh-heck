@@ -25,6 +25,12 @@ func _ready() -> void:
 	UiEvents.new_hand_leader.connect(check_and_set_leader_label)
 	UiEvents.end_bidding.connect(disable_leader_label)
 	leader_label.text = ""
+	
+	leader_label.visible = Tutorial.score_hud_should_show
+	Tutorial.score_hud_display_should_toggle.connect(toggle_visibility)
+
+func toggle_visibility() -> void:
+	leader_label.visible = !leader_label.visible
 
 func setup(gameplayer_to_assign:GamePlayer) -> void:
 	gameplayer = gameplayer_to_assign

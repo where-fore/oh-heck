@@ -10,7 +10,7 @@ func _ready() -> void:
 	my_label.text = ""
 	Dialogue.new_dialogue_bark.connect(scroll_text)
 	
-	scroll_text("HAHAHA HAHAHAHAHA")
+	scroll_text("HAHAHA WELCOME TO HECK HAHAHAHA")
 	#await get_tree().create_timer(3).timeout
 	#scroll_text("HEHEH HAHAHAHAHA")
 

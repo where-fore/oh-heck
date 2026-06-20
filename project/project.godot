@@ -21,6 +21,7 @@ Names="*res://globals/names.gd"
 UiEvents="*res://globals/ui_events.gd"
 Rules="*res://globals/rules.gd"
 Dialogue="*res://globals/dialogue.gd"
+Tutorial="*res://globals/tutorial.gd"
 
 [debug]
 

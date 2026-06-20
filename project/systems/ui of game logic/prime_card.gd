@@ -6,6 +6,12 @@ extends Control
 func _ready() -> void:
 	UiEvents.set_prime_card.connect(set_card_to)
 	UiEvents.hand_ended.connect(clear_card)
+	
+	Tutorial.prime_suit_toggle.connect(toggle_visibility)
+	visible = Tutorial.prime_suit_functional
+
+func toggle_visibility() -> void:
+	visible = !visible
 
 func set_card_to(new_card:Card) -> void:
 	ui_card.setup(new_card)
@@ -13,4 +19,4 @@ func set_card_to(new_card:Card) -> void:
 
 func clear_card() -> void:
 	ui_card.unsetup()
-	UiEvents.card_sent_to_discard.emit(ui_card.card)
+	if ui_card.card: UiEvents.card_sent_to_discard.emit(ui_card.card)

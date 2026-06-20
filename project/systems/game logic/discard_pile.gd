@@ -8,6 +8,8 @@ func _ready() -> void:
 
 func return_discard_pile() -> Array[Card]:
 	var to_return:Array[Card]
+	if to_return == null:
+		print_debug("test")
 	to_return.assign(cards_in_hand)
 	
 	for card:Card in cards_in_hand.duplicate():

@@ -7,7 +7,7 @@ extends Node2D
 @export var discard_pile:DiscardPile
 var current_turn:GamePlayer
 var next_leader_index:int = 0
-var current_hand_size:int = 3
+var current_hand_size:int = 2
 var current_bid_sum:int = 0
 
 func _ready() -> void:
@@ -18,7 +18,8 @@ func _ready() -> void:
 	UiEvents.player_bid_attempted.connect(attempt_player_bid)
 	UiEvents.bid_added.connect(sum_bid)
 	
-	current_turn = player
+	current_turn = enemy
+	next_leader_index = all_gameplayers.find(enemy)
 	
 	enemy.controlled_by_ai = true
 	enemy.hand_hidden = true
@@ -39,15 +40,78 @@ func attempt_player_bid(bid:int) -> void:
 func start_hand() -> void:
 	deck.shuffle_deck(discard_pile.return_discard_pile())
 	
-	var cards_dealt_to_all:int = 0
-	while cards_dealt_to_all < current_hand_size:
-		for gameplayer:GamePlayer in all_gameplayers:
-			gameplayer.hand.add_card(deck.draw_top_card())
-		cards_dealt_to_all += 1
+	if Tutorial.overwriting_draw_order:
+		draw_hand_for_tutorial()
+	else:
+		var cards_dealt_to_all:int = 0
+		while cards_dealt_to_all < current_hand_size:
+			for gameplayer:GamePlayer in all_gameplayers:
+				gameplayer.hand.add_card(deck.draw_top_card())
+			cards_dealt_to_all += 1
 	
-	UiEvents.set_prime_card.emit(deck.draw_top_card())
+	if Tutorial.prime_suit_functional:
+		if not Tutorial.overwriting_prime_choice:
+			UiEvents.set_prime_card.emit(deck.draw_top_card())
 	
-	UiEvents.new_hand_leader.emit(all_gameplayers[next_leader_index])
+	current_turn = all_gameplayers[next_leader_index]
+	
+	if Tutorial.bidding_interface_should_show:
+		await collect_bids()
+	
+	start_next_turn()
+
+func draw_hand_for_tutorial() -> void:
+	match Tutorial.tutorial_hand_stage:
+		1: #compare numbers: can win one but definitely lose at least one
+			player.hand.add_card(deck.draw_specific_card(7, Names.suit_devil))
+			player.hand.add_card(deck.draw_specific_card(2, Names.suit_devil))
+			enemy.hand.add_card(deck.draw_specific_card(9, Names.suit_devil))
+			enemy.hand.add_card(deck.draw_specific_card(6, Names.suit_devil))
+		
+		2: #suit following: enemy starts with sun, you have to follow and lose
+			player.hand.add_card(deck.draw_specific_card(9, Names.suit_moon))
+			player.hand.add_card(deck.draw_specific_card(4, Names.suit_sun))
+			enemy.hand.add_card(deck.draw_specific_card(7, Names.suit_sun))
+			enemy.hand.add_card(deck.draw_specific_card(8, Names.suit_moon))
+		
+		3: #primes suit
+			player.hand.add_card(deck.draw_specific_card(2, Names.suit_devil))
+			player.hand.add_card(deck.draw_specific_card(5, Names.suit_sun))
+			enemy.hand.add_card(deck.draw_specific_card(3, Names.suit_moon))
+			enemy.hand.add_card(deck.draw_specific_card(6, Names.suit_moon))
+			
+			Tutorial.toggle_prime_card_functionality()
+			UiEvents.set_prime_card.emit(deck.draw_specific_card(8, Names.suit_devil))
+		
+		4: #bidding - you beat enemy handily first, he says it's not about taking them all...
+			player.hand.add_card(deck.draw_specific_card(6, Names.suit_devil))
+			player.hand.add_card(deck.draw_specific_card(4, Names.suit_moon))
+			player.hand.add_card(deck.draw_specific_card(4, Names.suit_sun))
+			enemy.hand.add_card(deck.draw_specific_card(3, Names.suit_moon))
+			enemy.hand.add_card(deck.draw_specific_card(3, Names.suit_sun))
+			enemy.hand.add_card(deck.draw_specific_card(1, Names.suit_moon))
+
+func end_hand_for_tutorial() -> void:
+	match Tutorial.tutorial_hand_stage:
+		1:
+			pass
+		
+		2:
+			pass
+		
+		3:
+			Tutorial.overwriting_prime_choice = false
+		
+		4:
+			Tutorial.hand_size_should_increment = true
+			Tutorial.hand_leaders_should_swap = true
+			Tutorial.overwriting_draw_order = false
+			Tutorial.toggle_bidding_interface()
+			Tutorial.toggle_score_hud_display()
+	
+	Tutorial.tutorial_hand_stage += 1
+
+func collect_bids() -> bool:
 	
 	var bidding_gameplayers:Array[GamePlayer]
 	bidding_gameplayers.append(all_gameplayers[next_leader_index])
@@ -62,11 +126,7 @@ func start_hand() -> void:
 			UiEvents.begin_bidding.emit()
 			await UiEvents.end_bidding
 	
-	current_turn = all_gameplayers[next_leader_index]
-	next_leader_index += 1
-	if next_leader_index > all_gameplayers.size() - 1: next_leader_index = 0
-	
-	start_next_turn()
+	return true
 
 func check_and_play_card(gameplayer:GamePlayer, card:Card) -> void:
 	if gameplayer == current_turn:
@@ -165,8 +225,16 @@ func end_hand() -> void:
 	UiEvents.hand_ended.emit()
 	
 	current_bid_sum = 0
-	current_hand_size += 1
 	
+	if Tutorial.hand_size_should_increment:
+		current_hand_size += 1
+	
+	if Tutorial.hand_leaders_should_swap:
+		next_leader_index += 1
+		if next_leader_index > all_gameplayers.size() - 1: next_leader_index = 0
+		UiEvents.new_hand_leader.emit(all_gameplayers[next_leader_index])
+	
+	end_hand_for_tutorial()
 	start_hand()
 
 func _unhandled_input(event: InputEvent) -> void:

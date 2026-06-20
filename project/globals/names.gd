@@ -1,6 +1,6 @@
 extends Node
 
-const suit_devil:StringName = &"devils"
+const suit_devil:StringName = &"Devils"
 const suit_angel:StringName = &"Angels" #put into suits array if you want it
 const suit_sun:StringName = &"Suns"
 const suit_moon:StringName = &"Moons"

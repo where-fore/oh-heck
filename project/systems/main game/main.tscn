@@ -77,6 +77,7 @@ offset_top = 0.0
 offset_bottom = 11.0
 
 [node name="PrimeCard" parent="MainUI/GameContainer/GameMat" instance=ExtResource("2_ygcjw")]
+visible = false
 layout_mode = 1
 offset_left = -40.0
 offset_top = -20.0
@@ -155,18 +156,6 @@ offset_top = -22.0
 grow_horizontal = 0
 text = "-1"
 
-[node name="DialoguePopups" type="Control" parent="MainUI"]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 950.0
-offset_bottom = 530.0
-mouse_filter = 2
-
-[node name="DialogueBubble" parent="MainUI/DialoguePopups" instance=ExtResource("3_o4iuf")]
-layout_mode = 1
-
 [node name="Tutorial" type="Control" parent="MainUI"]
 visible = false
 layout_mode = 3
@@ -187,6 +176,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0.8627451)
 
 [node name="Label" type="Label" parent="MainUI/Tutorial/ColorRect"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -223,6 +213,18 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_63hud")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_o4iuf")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_vki74")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_3w2pm")
+
+[node name="DialoguePopups" type="Control" parent="MainUI"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 950.0
+offset_bottom = 530.0
+mouse_filter = 2
+
+[node name="DialogueBubble" parent="MainUI/DialoguePopups" instance=ExtResource("3_o4iuf")]
+layout_mode = 1
 
 [node name="GameLogicManager" type="Node2D" parent="."]
 

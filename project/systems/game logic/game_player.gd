@@ -86,6 +86,21 @@ func ai_choose_card() -> Card:
 		#to_print.append(card.print_string)
 	#print("available: ", ", ".join(to_print))
 	
+	if Tutorial.tutorial_hand_stage == 2:
+		var card_to_return:Card
+		for card:Card in available_cards:
+			if card.suit == Names.suit_sun:
+				card_to_return = card
+		if card_to_return: return card_to_return
+		else: return available_cards.pick_random()
+	
+	if Tutorial.tutorial_hand_stage == 3:
+		var card_to_return:Card
+		for card:Card in available_cards:
+			if card.value == 3:
+				card_to_return = card
+		if card_to_return: return card_to_return
+		else: return available_cards.pick_random()
 	
 	var best_card:Card
 	var best_value:int = 0
@@ -152,12 +167,12 @@ func ai_choose_bid(current_sum:int, maximum_hand_size:int) -> void:
 			@warning_ignore("integer_division")
 			if card.value >= Rules.max_card_value_to_create * 1 / 3:
 				estimated_tricks += 1
-				print(card.print_string, " very good")
+				#print(card.print_string, " very good")
 		else:
 			@warning_ignore("integer_division")
 			if card.value >= Rules.max_card_value_to_create * 2 / 3:
 				estimated_tricks += 1
-				print(card.print_string, " very good")
+				#print(card.print_string, " very good")
 	
 	while not Rules.validate_bid(estimated_tricks, current_sum, maximum_hand_size):
 		estimated_tricks += 1

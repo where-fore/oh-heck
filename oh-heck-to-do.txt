@@ -8,6 +8,8 @@ tutorial stage system
 		await tutorial_bidding_complete
 -
 
+need to incrememnt tutorial_hand_stage. not sure where, logically it's in hand_end but can just do it here in draw_hand_for_tutorial?
+	currently it's bricking game_player.ai_card_pick, it's checking if stage == 3 for special logic
 
 start with two cards (you get 5, 3. devil gets 6, 4)
 devil plays first (plays 6)
@@ -17,6 +19,7 @@ plays a card
 	BEAT THIS (plays 4)
 	either HAHA SO PUNY HAHA or FIESTY ARENT YOU HAHA LUCKY HAHAH CARD GAMES HAVE NO SKILL HAHA
 MORE CARDS
+
 get 2 cards (6 moon, 1 sun)
 plays 4 sun
 	HAVE TO FOLLOW SUIT HAHA
