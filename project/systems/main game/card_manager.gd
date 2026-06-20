@@ -49,6 +49,8 @@ func start_hand() -> void:
 	
 	UiEvents.set_prime_card.emit(deck.draw_top_card())
 	
+	UiEvents.new_hand_leader.emit(all_gameplayers[next_leader_index])
+	
 	var bidding_gameplayers:Array[GamePlayer]
 	bidding_gameplayers.append(all_gameplayers[next_leader_index])
 	for gameplayer:GamePlayer in all_gameplayers:

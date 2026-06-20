@@ -26,6 +26,7 @@ func setup(game_player_to_assign:GamePlayer) -> void:
 	else:
 		game_player.hand.card_added.connect(create_ui_card)
 		game_player.hand.card_removed.connect(delete_ui_card)
+		not_turn_indicator.visible = true
 
 func check_and_show_turn_indicator(player_whose_turn_started:GamePlayer) -> void:
 	if playmat:

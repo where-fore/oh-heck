@@ -1,9 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://cwd5utjj5grbm"]
+[gd_scene load_steps=5 format=3 uid="uid://cwd5utjj5grbm"]
 
 [ext_resource type="Script" uid="uid://cc18bdiymll11" path="res://systems/ui of game logic/ui_game_player.gd" id="1_r5k52"]
 [ext_resource type="PackedScene" uid="uid://fpdybr41mhfl" path="res://systems/ui of game logic/ui_hand.tscn" id="2_r5k52"]
 
-[node name="GamePlayer" type="PanelContainer" node_paths=PackedStringArray("hand", "playmat", "score_label", "bid_label", "tricks_label")]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r5k52"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yn03j"]
+
+[node name="GamePlayer" type="PanelContainer" node_paths=PackedStringArray("hand", "playmat", "score_label", "bid_label", "tricks_label", "leader_label")]
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -13,43 +17,20 @@ grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
 script = ExtResource("1_r5k52")
-hand = NodePath("Panel/VBoxContainer/Hand")
-playmat = NodePath("Panel/VBoxContainer/Playmat")
-score_label = NodePath("Counters/Score")
-bid_label = NodePath("Counters/Bid")
-tricks_label = NodePath("Counters/Tricks")
+hand = NodePath("GamePanel/VBoxContainer/Hand")
+playmat = NodePath("GamePanel/VBoxContainer/Playmat")
+score_label = NodePath("InfoPanel/Leader/Counters/Score")
+bid_label = NodePath("InfoPanel/Leader/Counters/Bid")
+tricks_label = NodePath("InfoPanel/Leader/Counters/Tricks")
+leader_label = NodePath("InfoPanel/Leader")
 
-[node name="Counters" type="VBoxContainer" parent="."]
-layout_mode = 2
-size_flags_horizontal = 0
-theme_override_constants/separation = 24
-alignment = 1
-
-[node name="Bid" type="Label" parent="Counters"]
-layout_mode = 2
-size_flags_horizontal = 0
-theme_override_font_sizes/font_size = 12
-text = "Score: "
-
-[node name="Tricks" type="Label" parent="Counters"]
-layout_mode = 2
-size_flags_horizontal = 0
-theme_override_font_sizes/font_size = 12
-text = "Score: "
-
-[node name="Score" type="Label" parent="Counters"]
-layout_mode = 2
-size_flags_horizontal = 0
-theme_override_font_sizes/font_size = 12
-text = "Score: "
-
-[node name="Panel" type="Panel" parent="."]
+[node name="GamePanel" type="Panel" parent="."]
 custom_minimum_size = Vector2(0, 268)
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 8
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_r5k52")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="GamePanel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -62,9 +43,56 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 8
 
-[node name="Playmat" parent="Panel/VBoxContainer" instance=ExtResource("2_r5k52")]
+[node name="Playmat" parent="GamePanel/VBoxContainer" instance=ExtResource("2_r5k52")]
 layout_mode = 2
 playmat = true
 
-[node name="Hand" parent="Panel/VBoxContainer" instance=ExtResource("2_r5k52")]
+[node name="Hand" parent="GamePanel/VBoxContainer" instance=ExtResource("2_r5k52")]
 layout_mode = 2
+
+[node name="InfoPanel" type="Panel" parent="."]
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_yn03j")
+
+[node name="Leader" type="Label" parent="InfoPanel"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 128.0
+offset_right = 82.0
+offset_bottom = 139.0
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 12
+text = "LEADER"
+
+[node name="Counters" type="VBoxContainer" parent="InfoPanel/Leader"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -36.0
+offset_top = 24.0
+offset_right = 35.0
+offset_bottom = 105.0
+grow_horizontal = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="Bid" type="Label" parent="InfoPanel/Leader/Counters"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 10
+text = "Bid: "
+
+[node name="Tricks" type="Label" parent="InfoPanel/Leader/Counters"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 10
+text = "Tricks: "
+
+[node name="Score" type="Label" parent="InfoPanel/Leader/Counters"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 10
+text = "Score: "

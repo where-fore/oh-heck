@@ -32,7 +32,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
-[node name="MarginContainer" type="MarginContainer" parent="MainUI"]
+[node name="GameContainer" type="MarginContainer" parent="MainUI"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -43,18 +43,18 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="BackgroundColour" type="ColorRect" parent="MainUI/MarginContainer"]
+[node name="BackgroundColour" type="ColorRect" parent="MainUI/GameContainer"]
 layout_mode = 2
 mouse_filter = 2
 color = Color(0.32156864, 0.019607844, 0.039215688, 1)
 
-[node name="GameMat" type="Control" parent="MainUI/MarginContainer"]
+[node name="GameMat" type="Control" parent="MainUI/GameContainer"]
 layout_mode = 2
 
-[node name="Player" parent="MainUI/MarginContainer/GameMat" instance=ExtResource("1_h0t3a")]
+[node name="Player" parent="MainUI/GameContainer/GameMat" instance=ExtResource("1_h0t3a")]
 layout_mode = 1
 
-[node name="Enemy" parent="MainUI/MarginContainer/GameMat" instance=ExtResource("1_h0t3a")]
+[node name="Enemy" parent="MainUI/GameContainer/GameMat" instance=ExtResource("1_h0t3a")]
 layout_mode = 1
 anchors_preset = 10
 anchor_top = 0.0
@@ -64,83 +64,20 @@ offset_bottom = 268.0
 grow_vertical = 1
 top = true
 
-[node name="VBoxContainer" parent="MainUI/MarginContainer/GameMat/Enemy/Panel" index="0"]
-offset_top = 118.0
-offset_bottom = 366.0
+[node name="VBoxContainer" parent="MainUI/GameContainer/GameMat/Enemy/GamePanel" index="0"]
 rotation = 3.1415927
-pivot_offset = Vector2(480, 0)
+pivot_offset = Vector2(480, 124)
 
-[node name="PrimeCard" parent="MainUI/MarginContainer/GameMat" instance=ExtResource("2_ygcjw")]
+[node name="Leader" parent="MainUI/GameContainer/GameMat/Enemy/InfoPanel" index="0"]
+layout_mode = 1
+offset_top = 0.0
+offset_bottom = 11.0
+
+[node name="PrimeCard" parent="MainUI/GameContainer/GameMat" instance=ExtResource("2_ygcjw")]
 layout_mode = 1
 offset_left = -40.0
 offset_top = -20.0
 offset_bottom = 20.0
-
-[node name="Bidding Interface" type="Control" parent="MainUI/MarginContainer" node_paths=PackedStringArray("textbox")]
-layout_mode = 2
-script = ExtResource("2_12n6d")
-textbox = NodePath("HBoxContainer/LineEdit")
-
-[node name="ColorRect" type="ColorRect" parent="MainUI/MarginContainer/Bidding Interface"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.47058824)
-
-[node name="HBoxContainer" type="HBoxContainer" parent="MainUI/MarginContainer/Bidding Interface"]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -20.0
-offset_right = 262.0
-offset_bottom = 20.0
-grow_vertical = 2
-
-[node name="Label" type="Label" parent="MainUI/MarginContainer/Bidding Interface/HBoxContainer"]
-layout_mode = 2
-text = "Enter bid:"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="LineEdit" type="LineEdit" parent="MainUI/MarginContainer/Bidding Interface/HBoxContainer"]
-custom_minimum_size = Vector2(120, 0)
-layout_mode = 2
-alignment = 1
-
-[node name="SubmitButton" type="Button" parent="MainUI/MarginContainer/Bidding Interface/HBoxContainer/LineEdit"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -51.0
-offset_right = 51.0
-offset_bottom = 22.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_font_sizes/font_size = 12
-text = "Submit"
-
-[node name="Up" type="Button" parent="MainUI/MarginContainer/Bidding Interface/HBoxContainer/LineEdit"]
-layout_mode = 1
-offset_top = -22.0
-offset_right = 40.0
-text = "+1"
-
-[node name="Down" type="Button" parent="MainUI/MarginContainer/Bidding Interface/HBoxContainer/LineEdit"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -38.0
-offset_top = -22.0
-grow_horizontal = 0
-text = "-1"
 
 [node name="Tutorial" type="Control" parent="MainUI"]
 visible = false
@@ -198,6 +135,78 @@ theme_override_styles/hover = SubResource("StyleBoxEmpty_o4iuf")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_vki74")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_3w2pm")
 
+[node name="Bidding Interface" type="Control" parent="MainUI" node_paths=PackedStringArray("textbox")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_12n6d")
+textbox = NodePath("HBoxContainer/LineEdit")
+
+[node name="ColorRect" type="ColorRect" parent="MainUI/Bidding Interface"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.47058824)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainUI/Bidding Interface"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 20.0
+offset_top = -20.0
+offset_right = 314.0
+offset_bottom = 20.0
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="MainUI/Bidding Interface/HBoxContainer"]
+layout_mode = 2
+text = "Enter bid:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="MainUI/Bidding Interface/HBoxContainer"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+alignment = 1
+
+[node name="SubmitButton" type="Button" parent="MainUI/Bidding Interface/HBoxContainer/LineEdit"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -51.0
+offset_right = 51.0
+offset_bottom = 22.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 12
+text = "Submit"
+
+[node name="Up" type="Button" parent="MainUI/Bidding Interface/HBoxContainer/LineEdit"]
+layout_mode = 1
+offset_top = -22.0
+offset_right = 40.0
+text = "+1"
+
+[node name="Down" type="Button" parent="MainUI/Bidding Interface/HBoxContainer/LineEdit"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -38.0
+offset_top = -22.0
+grow_horizontal = 0
+text = "-1"
+
 [node name="GameLogicManager" type="Node2D" parent="."]
 
 [node name="CardManager" type="Node2D" parent="GameLogicManager" node_paths=PackedStringArray("deck", "player", "enemy", "discard_pile")]
@@ -215,9 +224,9 @@ discard_pile = NodePath("DiscardPile")
 
 [node name="Enemy" parent="GameLogicManager/CardManager" instance=ExtResource("4_i5fcm")]
 
-[connection signal="pressed" from="MainUI/MarginContainer/Bidding Interface/HBoxContainer/LineEdit/SubmitButton" to="MainUI/MarginContainer/Bidding Interface" method="_on_submit_button_pressed"]
-[connection signal="pressed" from="MainUI/MarginContainer/Bidding Interface/HBoxContainer/LineEdit/Up" to="MainUI/MarginContainer/Bidding Interface" method="_on_up_pressed"]
-[connection signal="pressed" from="MainUI/MarginContainer/Bidding Interface/HBoxContainer/LineEdit/Down" to="MainUI/MarginContainer/Bidding Interface" method="_on_down_pressed"]
 [connection signal="pressed" from="MainUI/Tutorial/Button" to="MainUI/Tutorial" method="_on_button_pressed"]
+[connection signal="pressed" from="MainUI/Bidding Interface/HBoxContainer/LineEdit/SubmitButton" to="MainUI/Bidding Interface" method="_on_submit_button_pressed"]
+[connection signal="pressed" from="MainUI/Bidding Interface/HBoxContainer/LineEdit/Up" to="MainUI/Bidding Interface" method="_on_up_pressed"]
+[connection signal="pressed" from="MainUI/Bidding Interface/HBoxContainer/LineEdit/Down" to="MainUI/Bidding Interface" method="_on_down_pressed"]
 
-[editable path="MainUI/MarginContainer/GameMat/Enemy"]
+[editable path="MainUI/GameContainer/GameMat/Enemy"]

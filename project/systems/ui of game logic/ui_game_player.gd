@@ -6,6 +6,7 @@ extends Control
 @export var score_label:Label
 @export var bid_label:Label
 @export var tricks_label:Label
+@export var leader_label:Label
 var gameplayer:GamePlayer
 
 func _ready() -> void:
@@ -20,6 +21,10 @@ func _ready() -> void:
 		UiEvents.send_game_player_to_bottom_ui.connect(hand.setup)
 		UiEvents.send_game_player_to_bottom_ui.connect(playmat.setup)
 		UiEvents.send_game_player_to_bottom_ui.connect(setup)
+	
+	UiEvents.new_hand_leader.connect(check_and_set_leader_label)
+	UiEvents.end_bidding.connect(disable_leader_label)
+	leader_label.text = ""
 
 func setup(gameplayer_to_assign:GamePlayer) -> void:
 	gameplayer = gameplayer_to_assign
@@ -38,3 +43,12 @@ func set_bid_label() -> void:
 
 func set_tricks_label() -> void:
 	tricks_label.text = str("Tricks: ", gameplayer.current_tricks)
+
+func disable_leader_label() -> void:
+	leader_label.text = ""
+
+func check_and_set_leader_label(new_leader:GamePlayer) -> void:
+	if new_leader == gameplayer:
+		leader_label.text = "LEADER"
+	else:
+		leader_label.text = ""
