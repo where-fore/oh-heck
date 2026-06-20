@@ -1,0 +1,46 @@
+[gd_scene load_steps=3 format=3 uid="uid://bwdr17kmj2ef5"]
+
+[ext_resource type="Texture2D" uid="uid://bcfllatlrkeb7" path="res://sprites/speech_bubble.png" id="1_11h04"]
+[ext_resource type="Script" uid="uid://cjgv543qu4mgo" path="res://systems/main game/dialogue_popup.gd" id="2_5itoy"]
+
+[node name="DialogueBubble" type="TextureRect" node_paths=PackedStringArray("my_label")]
+custom_minimum_size = Vector2(280, 240)
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -290.0
+offset_top = -25.0
+offset_right = -10.0
+offset_bottom = 215.0
+grow_horizontal = 0
+texture = ExtResource("1_11h04")
+script = ExtResource("2_5itoy")
+my_label = NodePath("MarginContainer/RichTextLabel")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 40
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer"]
+custom_minimum_size = Vector2(160, 110)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/normal_font_size = 14
+text = "HAHAHAHA
+
+CARD GAMES HAVE NO SKILL
+
+HAHAHAHA"
+scroll_active = false
+shortcut_keys_enabled = false
+horizontal_alignment = 1
+vertical_alignment = 1
