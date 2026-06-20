@@ -71,6 +71,9 @@ figure out end condition
 okay it'd be really good
 ----------------------------------------------------------------------------
 
+colour code key terms - prime/suit/trick/bid etc, maybe to yellow?
+	not sure how this interacts with the typewriter effect
+
 intro:
 	signed devil contract, have the "if you have more than 66 points you win" signed at the bottom. have it be the rules, other nonsense
 		let player sign with mouse, press button
