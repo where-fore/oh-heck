@@ -162,6 +162,7 @@ offset_left = 10.0
 offset_top = 10.0
 offset_right = 950.0
 offset_bottom = 530.0
+mouse_filter = 2
 
 [node name="DialogueBubble" parent="MainUI/DialoguePopups" instance=ExtResource("3_o4iuf")]
 layout_mode = 1

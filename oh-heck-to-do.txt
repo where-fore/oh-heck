@@ -1,11 +1,6 @@
 right now
 --------------
 
-dialogue popups
-	thinking a permanent chat box
-		lil animation when new text, ideally sfx too
-		could go away at some point after the tutorial, TIME TO LOCK IN AHAHA
-
 tutorial stage system
 	thinking adding if checks and await checks into regular game logic, that checks tutorial stuff
 		if tutorial stage < 3: return
@@ -206,6 +201,17 @@ multiplayer!!!
 -
 
 clean up rules.validate bid - rules should probably hold the current bid sum and max hand size
+
+voice acting
+	have some laughs (regular, deeper, longer, awkward endings, etc)
+	some animal crossing gibberish for non laughs
+	not sure how to code that
+
+
+
+
+
+
 
 
 ----------------------------------------------------------------------------
