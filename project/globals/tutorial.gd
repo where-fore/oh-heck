@@ -8,6 +8,12 @@ signal tutorial_finished
 var hand_stage:int = 1
 var max_hand_stage:int = 4 #descriptive, not prescriptive. update me
 
+var barked_about_bid_scoring:bool = false
+var barked_about_trick_scoring:bool = false
+var barked_about_trick_turn_swapping:bool = false
+var barked_about_leader_swapping:bool = false
+
+
 #
 #game rule/state toggles, and their signals
 #

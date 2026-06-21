@@ -1,19 +1,6 @@
 right now
 --------------
 
-haven't explained who starts turns, it's alternating first start leader; and mid hand whoever takes trick starts the next
-have devil say MY TURN AHA when taking trick. MY TURN TO LEAD AHA during gameplay
-
-scoring barks:
-10 POINTS FOR MAKING BID HAHAH GOOD GUESS
-AH VERY SMART GOOD BID AH ; TOO MUCH WINNING, SO GREEEEDY AHAHA ; SO PUNY, NO WINNING AHAH
-
-
-
-
----------------------------------------------------------
-required
----------------------------------------------------------
 
 
 ----------------------------------------------------------------------------
@@ -86,6 +73,13 @@ clean up the card visuals:
 ----------------------------------------------------------------------------
 im brainstormin
 ----------------------------------------------------------------------------
+
+scoring barks:
+10 POINTS FOR MAKING BID HAHAH GOOD GUESS
+AH VERY SMART GOOD BID AH ; TOO MUCH WINNING, SO GREEEEDY AHAHA ; SO PUNY, NO WINNING AHAH
+
+
+
 
 demons.... sign a contract? then beat them at oh-hell? i like the "i am going to ___" instead of trying to "win", it's about trying to guess your capabilities correctly
 oh hell, that's good

@@ -7,7 +7,7 @@ extends Node2D
 @export var discard_pile:DiscardPile
 var current_turn:GamePlayer
 var next_leader_index:int = 0
-var current_hand_size:int = 2
+var current_hand_size:int = 3
 var max_starting_hand_size:int = 7
 var current_bid_sum:int = 0
 
@@ -221,6 +221,12 @@ func award_trick_to_winner(winner:GamePlayer) -> void:
 	UiEvents.trick_won.emit(winner)
 	winner.award_trick()
 	current_turn = winner
+	
+	if Tutorial.hand_stage > Tutorial.max_hand_stage + 1 and not Tutorial.barked_about_trick_turn_swapping:
+		if winner.hand.cards_in_hand.size() > 2:
+			if winner.controlled_by_ai:
+				Dialogue.new_dialogue_bark.emit("I WIN! HAHA MY TURN NOW HAHAHA")
+				Tutorial.barked_about_trick_turn_swapping = true
 
 func end_hand() -> void:
 	for gameplayer:GamePlayer in all_gameplayers:
@@ -244,6 +250,10 @@ func end_hand() -> void:
 		next_leader_index += 1
 		if next_leader_index > all_gameplayers.size() - 1: next_leader_index = 0
 		UiEvents.new_hand_leader.emit(all_gameplayers[next_leader_index])
+		if not Tutorial.barked_about_leader_swapping and Tutorial.hand_stage > Tutorial.max_hand_stage + 2:
+			if all_gameplayers[next_leader_index].controlled_by_ai:
+				Tutorial.barked_about_leader_swapping = true
+				Dialogue.new_dialogue_bark.emit("MY TURN TO START HAHAHA HM... WHAT TO BID...")
 	
 	if Tutorial.hand_stage < Tutorial.max_hand_stage:
 		await get_tree().create_timer(3).timeout

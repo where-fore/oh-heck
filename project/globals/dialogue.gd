@@ -7,6 +7,7 @@ signal played_card(gameplayer:GamePlayer, card:Card)
 
 var dialogue_stage:int = 100
 
+
 func _ready() -> void:
 	played_card.connect(card_played_bark)
 	UiEvents.hand_ended.connect(round_ended_bark)
