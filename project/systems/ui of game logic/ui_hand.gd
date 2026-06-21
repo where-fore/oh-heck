@@ -9,6 +9,7 @@ var game_player:GamePlayer
 @export var not_turn_indicator:ColorRect
 @export var UICard_base_scene:PackedScene
 @export var trick_winning:Control
+@export var trick_winning_message_label:Label
 @onready var base_turn_alpha:float = not_turn_indicator.color.a
 
 func _ready() -> void:
@@ -26,7 +27,9 @@ func setup(game_player_to_assign:GamePlayer) -> void:
 	if playmat:
 		game_player.playmat.card_added.connect(create_ui_card)
 		game_player.playmat.card_removed.connect(delete_ui_card)
-		UiEvents.trick_won.connect(celebrate_trick_taken)
+		UiEvents.trick_won_by_prime.connect(celebrate_trick_won_by_prime)
+		UiEvents.trick_won_by_lead_suit.connect(celebrate_trick_won_by_lead_suit)
+		UiEvents.trick_won_by_remainder.connect(celebrate_trick_won_by_remainder)
 	else:
 		game_player.hand.card_added.connect(create_ui_card)
 		game_player.hand.card_removed.connect(delete_ui_card)
@@ -83,17 +86,31 @@ func delete_ui_card(card_to_delete:Card) -> void:
 	
 	if not deleted: push_error("couldn't find ui card to delete: ", card_to_delete.print_string)
 
-func celebrate_trick_taken(winner:GamePlayer) -> void:
+func celebrate_trick_won_by_prime(winner:GamePlayer) -> void:
+	_celebrate_trick_taken(winner, "HIGHEST PRIME")
+
+func celebrate_trick_won_by_lead_suit(winner:GamePlayer) -> void:
+	_celebrate_trick_taken(winner, "HIGHEST LEAD SUIT")
+
+func celebrate_trick_won_by_remainder(winner:GamePlayer) -> void:
+	_celebrate_trick_taken(winner, "BLACK MAGIC")
+
+func _celebrate_trick_taken(winner:GamePlayer, celebration_text:String) -> void:
 	if winner == game_player:
+		trick_winning_message_label.text = celebration_text
+		trick_winning.scale = Vector2(0,0)
+		trick_winning.modulate = Color(1,1,1,1)
+		
 		var in_tween:Tween = create_tween()
 		in_tween.set_trans(Tween.TRANS_ELASTIC)
 		in_tween.set_ease(Tween.EASE_OUT)
 		in_tween.tween_property(trick_winning, "scale", Vector2(1,1), 1)
 		
-		await get_tree().create_timer(2).timeout
+		var delay:float
+		if Tutorial.hand_stage > Tutorial.max_hand_stage: delay = 2
+		else: delay = 4
+		await get_tree().create_timer(delay).timeout
 		
 		var out_tween:Tween = create_tween()
-		out_tween.set_trans(Tween.TRANS_ELASTIC)
-		out_tween.set_ease(Tween.EASE_OUT)
-		out_tween.tween_property(trick_winning, "scale", Vector2(0,0), 1)
+		out_tween.tween_property(trick_winning, "modulate", Color(0,0,0,0), 1)
 		

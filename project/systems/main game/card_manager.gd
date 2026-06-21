@@ -154,7 +154,10 @@ func end_round() -> void:
 	
 	var should_end_hand:bool = false
 	
-	await get_tree().create_timer(1.25).timeout
+	var delay:float
+	if Tutorial.hand_stage > Tutorial.max_hand_stage: delay = 1.5
+	else: delay = 3.0
+	await get_tree().create_timer(delay).timeout
 	
 	for gameplayer:GamePlayer in all_gameplayers:
 		gameplayer.playmat.discard_hand()
@@ -185,18 +188,27 @@ func start_next_turn() -> void:
 	current_turn.start_turn()
 
 func find_and_award_winner() -> void:
-	if not check_highest_of_suit(Rules.current_prime):
-		if not check_highest_of_suit(Rules.current_lead_suit):
-			var highest_value:int = 0
-			var winning_gameplayer:GamePlayer = enemy
-			for gameplayer:GamePlayer in all_gameplayers:
-				for card:Card in gameplayer.playmat.cards_in_hand:
-					if card.value > highest_value:
-						highest_value = card.value
-						winning_gameplayer = gameplayer
-			award_trick_to_winner(winning_gameplayer)
+	var won_by_prime:GamePlayer = check_highest_of_suit(Rules.current_prime)
+	if won_by_prime:
+		UiEvents.trick_won_by_prime.emit(won_by_prime)
+		return
+	
+	var won_by_suit:GamePlayer = check_highest_of_suit(Rules.current_lead_suit)
+	if won_by_suit:
+		UiEvents.trick_won_by_lead_suit.emit(won_by_suit)
+		return
+	
+	var highest_value:int = 0
+	var winning_gameplayer:GamePlayer = enemy
+	for gameplayer:GamePlayer in all_gameplayers:
+		for card:Card in gameplayer.playmat.cards_in_hand:
+			if card.value > highest_value:
+				highest_value = card.value
+				winning_gameplayer = gameplayer
+	UiEvents.trick_won_by_remainder.emit(winning_gameplayer)
+	award_trick_to_winner(winning_gameplayer)
 
-func check_highest_of_suit(suit_to_check:StringName) -> bool:
+func check_highest_of_suit(suit_to_check:StringName) -> GamePlayer:
 	var suit_in_play:bool = false
 	for gameplayer:GamePlayer in all_gameplayers:
 		for card:Card in gameplayer.playmat.cards_in_hand:
@@ -213,12 +225,11 @@ func check_highest_of_suit(suit_to_check:StringName) -> bool:
 						highest_value = card.value
 						winning_gameplayer = gameplayer
 		award_trick_to_winner(winning_gameplayer)
-		return true
+		return winning_gameplayer
 	
-	return false
+	return winning_gameplayer
 
 func award_trick_to_winner(winner:GamePlayer) -> void:
-	UiEvents.trick_won.emit(winner)
 	winner.award_trick()
 	current_turn = winner
 	

@@ -68,11 +68,10 @@ grow_vertical = 1
 top = true
 
 [node name="Leader" parent="MainUI/GameContainer/GameMat/Enemy/InfoPanel" index="0"]
-layout_mode = 1
-offset_left = 0.0
-offset_top = 0.0
-offset_right = 72.0
-offset_bottom = 11.0
+offset_left = 15.0
+offset_top = 5.0
+offset_right = 87.0
+offset_bottom = 16.0
 
 [node name="PrimeCard" parent="MainUI/GameContainer/GameMat" instance=ExtResource("2_ygcjw")]
 visible = false
@@ -263,14 +262,16 @@ offset_right = 950.0
 offset_bottom = 530.0
 mouse_filter = 2
 
-[node name="DialogueBubbleManager" type="Control" parent="MainUI/DialoguePopups"]
+[node name="DialogueBubbleManager" type="VBoxContainer" parent="MainUI/DialoguePopups"]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 1
+anchor_left = 1.0
 anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_left = -280.0
+offset_bottom = 240.0
+grow_horizontal = 0
 mouse_filter = 2
+theme_override_constants/separation = -90
 script = ExtResource("6_63hud")
 individual_bubble = ExtResource("3_o4iuf")
 

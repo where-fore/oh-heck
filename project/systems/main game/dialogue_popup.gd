@@ -22,7 +22,7 @@ func scroll_text(new_text:String) -> void:
 	scroll_text_tween.tween_property(my_label, "visible_characters", total_characters, duration)
 	
 	await scroll_text_tween.finished
-	await get_tree().create_timer(1 + total_characters/8.0).timeout
+	await get_tree().create_timer(0.7 + total_characters/9.0).timeout
 	tween_bubble_out()
 
 func tween_bubble_in() -> bool:
@@ -32,17 +32,18 @@ func tween_bubble_in() -> bool:
 	var tween:Tween = create_tween()
 	tween.set_trans(Tween.TRANS_ELASTIC)
 	tween.set_ease(Tween.EASE_OUT)
-	tween.tween_property(self, "scale", Vector2(1,1), 1)
+	var duration:float = 1.0
+	tween.tween_property(self, "scale", Vector2(1,1), duration)
 	
-	await tween.finished
+	await get_tree().create_timer(duration - 0.5).timeout
 	return true
 
 func tween_bubble_out() -> void:
 	var my_color:Color = modulate
 	fade_out_bubble_tween = create_tween()
 	fade_out_bubble_tween.set_ease(Tween.EASE_IN)
-	fade_out_bubble_tween.set_trans(Tween.TRANS_QUAD)
-	fade_out_bubble_tween.tween_property(self, "modulate", Color(my_color.r, my_color.g, my_color.b, 0), 1.5)
+	fade_out_bubble_tween.set_trans(Tween.TRANS_EXPO)
+	fade_out_bubble_tween.tween_property(self, "modulate", Color(my_color.r, my_color.g, my_color.b, 0), 0.75)
 	
 	await fade_out_bubble_tween.finished
 	queue_free()

@@ -5,6 +5,7 @@ extends Control
 func _ready() -> void:
 	Dialogue.new_dialogue_bark.connect(new_dialogue_bubble)
 	
+	await get_tree().create_timer(1.5).timeout
 	new_dialogue_bubble("HAHAHA WELCOME TO HECK HAHAHAHA")
 	await get_tree().create_timer(5).timeout
 	new_dialogue_bubble("HAVE SOME CARDS HAHAHAHAH")
