@@ -59,7 +59,7 @@ func card_played_bark(who_played_card:GamePlayer, card_played:Card) -> void:
 
 func round_ended_bark() -> void:
 	if Tutorial.hand_stage == 2:
-		new_dialogue_bark.emit("HM........ PRIME SUITS ALWAYS WIN")
+		new_dialogue_bark.emit("HM........ PRIME SUITS ALWAYS WIN!")
 	if Tutorial.hand_stage == 3:
 		new_dialogue_bark.emit("OKAY OKAY OKAY ENOUGH NEW RULES")
 	if Tutorial.hand_stage == 4:
